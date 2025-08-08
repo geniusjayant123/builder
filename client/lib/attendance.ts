@@ -153,15 +153,16 @@ export const getTodaysClasses = (): TimeSlot[] => {
   const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
   const customTimetable = getCustomTimetable();
   const todaysSlots = customTimetable[today] || [];
+  const allSubjects = getAllSubjects();
 
   return todaysSlots.map(slot => {
-    const subject = sampleSubjects.find(s => s.id === slot.subjectId);
+    const subject = allSubjects.find(s => s.id === slot.subjectId);
     return {
       id: slot.id,
       day: slot.day,
       startTime: slot.startTime,
       endTime: slot.endTime,
-      subject: subject || sampleSubjects[0], // fallback to first subject
+      subject: subject || allSubjects[0], // fallback to first subject
     };
   });
 };
