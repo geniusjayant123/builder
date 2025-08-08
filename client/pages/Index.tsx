@@ -333,14 +333,9 @@ export default function Index() {
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {Object.entries(stats.subjectStats).map(([subjectId, subjectStat]) => {
-                const subject = [
-                  { id: '1', name: 'Mathematics', code: 'MATH101', color: '#3B82F6' },
-                  { id: '2', name: 'Physics', code: 'PHY101', color: '#EF4444' },
-                  { id: '3', name: 'Chemistry', code: 'CHE101', color: '#8B5CF6' },
-                  { id: '4', name: 'Computer Science', code: 'CS101', color: '#10B981' },
-                  { id: '5', name: 'English', code: 'ENG101', color: '#F59E0B' },
-                ].find(s => s.id === subjectId);
-                
+                const allSubjects = getAllSubjects();
+                const subject = allSubjects.find(s => s.id === subjectId);
+
                 if (!subject) return null;
                 
                 return (
