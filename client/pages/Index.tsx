@@ -135,6 +135,10 @@ export default function Index() {
       </div>
 
       <div className="container mx-auto px-4 py-6 space-y-6">
+        {/* Timetable Manager */}
+        {showTimetableManager && (
+          <TimetableManager onTimetableUpdate={refreshData} />
+        )}
         {/* Stats Overview */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Overall Attendance */}
