@@ -135,7 +135,7 @@
 
   /* Additional safe area padding for small screens */
   .pt-safe-top {
-    padding-top: env(safe-area-inset-top, 30px);
+    padding-top: env(safe-area-inset-top, 60px);
   }
 
   /* Ensure content fits within viewport */
