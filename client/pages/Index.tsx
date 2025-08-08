@@ -44,6 +44,7 @@ export default function Index() {
   const [todaysClasses, setTodaysClasses] = useState<TimeSlot[]>([]);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [showTimetableManager, setShowTimetableManager] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   useEffect(() => {
     initializeSampleData();
