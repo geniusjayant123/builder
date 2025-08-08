@@ -85,8 +85,8 @@ export default function Index() {
 
   const handleRemoveSubject = (subjectId: string) => {
     const subject = getAllSubjects().find(s => s.id === subjectId);
-    if (subject && confirm(`Are you sure you want to remove "${subject.name}"? This will delete all attendance records for this subject.`)) {
-      removeCustomSubject(subjectId);
+    if (subject && confirm(`Are you sure you want to remove "${subject.name}"? This will delete all attendance records and timetable entries for this subject.`)) {
+      removeAnySubject(subjectId);
       refreshData();
     }
   };
