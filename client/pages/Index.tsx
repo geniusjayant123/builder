@@ -25,14 +25,15 @@ import {
 } from "lucide-react";
 
 export default function Index() {
-  const [stats, setStats] = useState<AttendanceStats>({ 
-    totalLectures: 0, 
-    attendedLectures: 0, 
-    percentage: 0, 
-    subjectStats: {} 
+  const [stats, setStats] = useState<AttendanceStats>({
+    totalLectures: 0,
+    attendedLectures: 0,
+    percentage: 0,
+    subjectStats: {}
   });
   const [todaysClasses, setTodaysClasses] = useState<TimeSlot[]>([]);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [showTimetableManager, setShowTimetableManager] = useState(false);
 
   useEffect(() => {
     initializeSampleData();
