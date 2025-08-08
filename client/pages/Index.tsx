@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  calculateAttendanceStats, 
-  getTodaysClasses, 
-  markAttendance, 
+import {
+  calculateAttendanceStats,
+  getTodaysClasses,
+  markAttendance,
   getAttendanceForDate,
   initializeSampleData,
+  autoMarkAbsent,
   type AttendanceStats,
   type TimeSlot
 } from "@/lib/attendance";
