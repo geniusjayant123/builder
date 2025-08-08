@@ -56,6 +56,16 @@ export default function TimetableManager({ onTimetableUpdate }: TimetableManager
     setAllSubjects(getAllSubjects());
   }, []);
 
+  const handleCreateCustomSubject = () => {
+    if (customSubjectName.trim()) {
+      const newSubject = createCustomSubject(customSubjectName.trim());
+      const updatedSubjects = getAllSubjects();
+      setAllSubjects(updatedSubjects);
+      setSelectedSubject(newSubject.id);
+      setCustomSubjectName('');
+    }
+  };
+
   const handleAddSubject = () => {
     if (selectedDay && selectedSubject && startTime && endTime) {
       const updatedTimetable = addSubjectToDay(selectedDay, selectedSubject, startTime, endTime);
@@ -65,6 +75,7 @@ export default function TimetableManager({ onTimetableUpdate }: TimetableManager
       setSelectedSubject('');
       setStartTime('09:00');
       setEndTime('10:00');
+      setAllSubjects(getAllSubjects()); // Refresh subjects list
       onTimetableUpdate();
     }
   };
