@@ -87,7 +87,7 @@ export default function TimetableManager({ onTimetableUpdate }: TimetableManager
   };
 
   const getSubjectById = (id: string) => {
-    return sampleSubjects.find(s => s.id === id) || sampleSubjects[0];
+    return allSubjects.find(s => s.id === id) || allSubjects[0];
   };
 
   const formatTime = (time: string) => {
