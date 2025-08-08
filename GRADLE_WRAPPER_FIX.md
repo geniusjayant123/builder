@@ -1,6 +1,7 @@
 # 🔧 Gradle Wrapper Fix - Ionic AppFlow
 
 ## 🚨 **Error Identified:**
+
 ```
 Error: Could not find or load main class org.gradle.wrapper.GradleWrapperMain
 Caused by: java.lang.ClassNotFoundException: org.gradle.wrapper.GradleWrapperMai
@@ -17,12 +18,14 @@ I've **removed the existing android folder** and created a **clean build process
 ### **New Build Commands (Use These):**
 
 **Option 1: Simple Clean Build**
+
 ```bash
 npm ci
 npm run ionic:build
 ```
 
 **Option 2: Explicit Step-by-Step**
+
 ```bash
 npm ci
 npm run build:mobile
@@ -33,6 +36,7 @@ npx @capacitor/cli sync android
 ```
 
 **Option 3: Using Build Script**
+
 ```bash
 npm ci
 chmod +x scripts/ionic-build.sh
@@ -41,16 +45,17 @@ chmod +x scripts/ionic-build.sh
 
 ## 🎯 **Why This Fixes the Issue:**
 
-| **Problem** | **Solution** |
-|-------------|--------------|
-| ❌ Corrupted gradle-wrapper.jar | ✅ Fresh Android project generation |
-| ❌ Missing wrapper files | ✅ Capacitor creates complete wrapper |
-| ❌ Permission issues | ✅ Explicit chmod +x commands |
-| ❌ Cached build artifacts | ✅ Clean build every time |
+| **Problem**                     | **Solution**                          |
+| ------------------------------- | ------------------------------------- |
+| ❌ Corrupted gradle-wrapper.jar | ✅ Fresh Android project generation   |
+| ❌ Missing wrapper files        | ✅ Capacitor creates complete wrapper |
+| ❌ Permission issues            | ✅ Explicit chmod +x commands         |
+| ❌ Cached build artifacts       | ✅ Clean build every time             |
 
 ## 📱 **Step-by-Step Ionic AppFlow Setup:**
 
 ### **1. Update Your Build Configuration:**
+
 1. Go to your Ionic AppFlow project
 2. Navigate to **Build** → **Build Configuration**
 3. **Replace** the build commands with:
@@ -60,20 +65,24 @@ chmod +x scripts/ionic-build.sh
    ```
 
 ### **2. Environment Settings:**
+
 - **Node Version**: 18
 - **Build Type**: Debug
 - **Platform**: Android
 
 ### **3. Advanced Options (if available):**
+
 - **Clean Build**: Enable (this removes cached artifacts)
 - **Timeout**: 30 minutes
 
 ## 🔧 **Alternative Solutions:**
 
 ### **Option A: Try Different Build Commands**
+
 If the main solution fails, try these alternatives:
 
 **Alternative 1:**
+
 ```bash
 npm install --production=false
 npm run build:mobile
@@ -83,6 +92,7 @@ npx cap sync android
 ```
 
 **Alternative 2:**
+
 ```bash
 npm ci
 npm run build:mobile
@@ -92,6 +102,7 @@ cd .. && npx @capacitor/cli sync android
 ```
 
 ### **Option B: Use GitHub Actions Instead**
+
 If Ionic AppFlow continues to fail:
 
 1. **Go to**: https://github.com/geniusjayant123/builder/actions
@@ -99,7 +110,9 @@ If Ionic AppFlow continues to fail:
 3. **Manual trigger**: Run workflow → Run workflow
 
 ### **Option C: Local Android Studio Build**
+
 Most reliable option:
+
 1. **Download** the project to your computer
 2. **Run**: `npm ci && npm run ionic:build`
 3. **Open**: `android` folder in Android Studio
@@ -108,6 +121,7 @@ Most reliable option:
 ## 📊 **Expected Results:**
 
 ### **Successful Build Should Show:**
+
 ```
 ✅ npm ci completed
 ✅ Web build successful
@@ -119,7 +133,9 @@ Most reliable option:
 ```
 
 ### **If It Still Fails:**
+
 Look for these specific errors in logs:
+
 - **"gradle-wrapper.jar not found"** → Try Option A above
 - **"Permission denied"** → chmod issue, try Option B
 - **"SDK not found"** → Android SDK issue in Ionic AppFlow
@@ -136,6 +152,7 @@ Look for these specific errors in logs:
 ## 📞 **Still Having Issues?**
 
 If you encounter new errors:
+
 1. **Copy the exact error message**
 2. **Note which step failed**
 3. **Try the alternative build methods above**
