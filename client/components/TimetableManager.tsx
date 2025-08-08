@@ -116,28 +116,28 @@ export default function TimetableManager({
 
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-xl flex items-center gap-2">
-            <Settings className="h-6 w-6" />
+          <CardTitle className="text-lg flex items-center gap-2">
+            <Settings className="h-5 w-5" />
             Manage Timetable
           </CardTitle>
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-primary hover:bg-primary/90">
-                <Plus className="h-4 w-4 mr-2" />
-                Add Subject
+              <Button className="bg-primary hover:bg-primary/90 text-sm h-8">
+                <Plus className="h-3 w-3 mr-1" />
+                Add
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md">
+            <DialogContent className="max-w-sm mx-2">
               <DialogHeader>
                 <DialogTitle>Add Subject to Timetable</DialogTitle>
               </DialogHeader>
-              <div className="space-y-4 py-4">
-                <div className="space-y-2">
-                  <Label htmlFor="day">Day</Label>
+              <div className="space-y-3 py-3">
+                <div className="space-y-1">
+                  <Label htmlFor="day" className="text-sm">Day</Label>
                   <Select value={selectedDay} onValueChange={setSelectedDay}>
-                    <SelectTrigger>
+                    <SelectTrigger className="h-9">
                       <SelectValue placeholder="Select a day" />
                     </SelectTrigger>
                     <SelectContent>
