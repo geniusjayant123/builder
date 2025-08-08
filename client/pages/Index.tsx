@@ -411,19 +411,32 @@ export default function Index() {
                       className="p-4 rounded-lg border-2 bg-white"
                       style={{ borderColor: `${subject.color}20` }}
                     >
-                      <div className="flex items-center gap-3 mb-3">
-                        <div
-                          className="w-3 h-3 rounded-full"
-                          style={{ backgroundColor: subject.color }}
-                        />
-                        <div>
-                          <h4 className="font-medium text-gray-900">
-                            {subject.name}
-                          </h4>
-                          <p className="text-xs text-gray-600">
-                            {subject.code}
-                          </p>
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-3">
+                          <div
+                            className="w-3 h-3 rounded-full"
+                            style={{ backgroundColor: subject.color }}
+                          />
+                          <div>
+                            <h4 className="font-medium text-gray-900">
+                              {subject.name}
+                            </h4>
+                            <p className="text-xs text-gray-600">
+                              {subject.code}
+                            </p>
+                          </div>
                         </div>
+                        {subject.id.startsWith('custom-') && (
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleRemoveSubject(subject.id)}
+                            className="text-red-500 hover:text-red-700 hover:bg-red-50 h-6 w-6 p-0"
+                            title="Remove custom subject"
+                          >
+                            <Trash2 className="h-3 w-3" />
+                          </Button>
+                        )}
                       </div>
                       <div className="text-center">
                         <div
