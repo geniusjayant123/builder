@@ -24,7 +24,8 @@ import {
   Clock,
   BarChart3,
   GraduationCap,
-  Settings
+  Settings,
+  RotateCcw
 } from "lucide-react";
 
 export default function Index() {
