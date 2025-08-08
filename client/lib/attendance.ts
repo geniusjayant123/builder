@@ -544,3 +544,78 @@ export const initializeSampleData = () => {
     saveAttendanceData(sampleRecords);
   }
 };
+
+export const undoAttendance = (subjectId: string, date: string) => {
+  const records = getAttendanceData();
+  const filteredRecords = records.filter(r => !(r.subjectId === subjectId && r.date === date));
+  saveAttendanceData(filteredRecords);
+  return filteredRecords;
+};
+
+export const removeCustomSubject = (subjectId: string) => {
+  const customSubjects = getCustomSubjects();
+  const filteredSubjects = customSubjects.filter(s => s.id !== subjectId);
+  saveCustomSubjects(filteredSubjects);
+
+  // Also remove all attendance records for this subject
+  const records = getAttendanceData();
+  const filteredRecords = records.filter(r => r.subjectId !== subjectId);
+  saveAttendanceData(filteredRecords);
+
+  return { subjects: filteredSubjects, records: filteredRecords };
+};
+
+export const getAttendanceForDateAndSubject = (date: string, subjectId?: string): AttendanceRecord[] => {
+  const records = getAttendanceData();
+  if (subjectId) {
+    return records.filter(r => r.date === date && r.subjectId === subjectId);
+  }
+  return records.filter(r => r.date === date);
+};
+
+export const getAllAttendanceDates = (): string[] => {
+  const records = getAttendanceData();
+  const dates = [...new Set(records.map(r => r.date))];
+  return dates.sort().reverse(); // Most recent first
+};
+
+export const editAttendance = (subjectId: string, date: string, newStatus: 'present' | 'absent') => {
+  const records = getAttendanceData();
+  const existingRecord = records.find(r => r.subjectId === subjectId && r.date === date);
+
+  if (existingRecord) {
+    existingRecord.status = newStatus;
+    existingRecord.markedAt = new Date().toISOString();
+  } else {
+    const newRecord: AttendanceRecord = {
+      id: `${subjectId}-${date}`,
+      subjectId,
+      date,
+      status: newStatus,
+      markedAt: new Date().toISOString(),
+    };
+    records.push(newRecord);
+  }
+
+  saveAttendanceData(records);
+  return records;
+};
+
+export const getClassesForDate = (date: string): TimeSlot[] => {
+  const dateObj = new Date(date);
+  const dayName = dateObj.toLocaleDateString('en-US', { weekday: 'long' });
+  const customTimetable = getCustomTimetable();
+  const daySlots = customTimetable[dayName] || [];
+  const allSubjects = getAllSubjects();
+
+  return daySlots.map(slot => {
+    const subject = allSubjects.find(s => s.id === slot.subjectId);
+    return {
+      id: slot.id,
+      day: slot.day,
+      startTime: slot.startTime,
+      endTime: slot.endTime,
+      subject: subject || allSubjects[0],
+    };
+  });
+};
