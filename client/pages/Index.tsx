@@ -132,55 +132,54 @@ export default function Index() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 overflow-x-hidden">
       {/* Header */}
       <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-10">
-        <div className="container mx-auto px-3 py-3">
-          <div className="flex items-center justify-between flex-wrap gap-2">
-            <div className="flex items-center gap-3">
-              <div className="bg-primary/10 p-2 rounded-xl">
-                <GraduationCap className="h-8 w-8 text-primary" />
+        <div className="container mx-auto px-2 py-2">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="bg-primary/10 p-1.5 rounded-lg">
+                <GraduationCap className="h-6 w-6 text-primary" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">
+                <h1 className="text-lg font-bold text-gray-900">
                   AttendanceTracker
                 </h1>
-                <p className="text-sm text-gray-600">
-                  Track your academic progress
+                <p className="text-xs text-gray-600">
+                  Track your progress
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-2 flex-wrap">
+            <div className="flex items-center gap-1">
               <Button
                 variant="outline"
                 onClick={() => setShowTimetableManager(!showTimetableManager)}
-                className="flex items-center gap-1 text-xs sm:text-sm"
+                className="p-2 h-8 w-8"
                 size="sm"
+                title="Manage Timetable"
               >
-                <Settings className="h-3 w-3 sm:h-4 sm:w-4" />
-                <span className="hidden sm:inline">{showTimetableManager ? "Hide" : "Manage"}</span>
-                <span className="sm:hidden">Manage</span>
+                <Settings className="h-4 w-4" />
               </Button>
               <Button
                 variant="outline"
                 onClick={() => setShowDatePicker(true)}
-                className="flex items-center gap-1 text-xs sm:text-sm"
+                className="p-2 h-8 w-8"
                 size="sm"
+                title="Edit History"
               >
-                <CalendarDays className="h-3 w-3 sm:h-4 sm:w-4" />
-                <span className="hidden sm:inline">Edit History</span>
-                <span className="sm:hidden">History</span>
+                <CalendarDays className="h-4 w-4" />
               </Button>
               <div
-                className="text-right cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors"
+                className="text-right cursor-pointer hover:bg-gray-50 p-1 rounded-md transition-colors min-w-0"
                 onClick={() => setShowDatePicker(true)}
                 title="Click to edit historical attendance"
               >
-                <p className="text-sm text-gray-600">Today</p>
-                <p className="font-semibold text-gray-900 flex items-center gap-1">
-                  <Calendar className="h-4 w-4" />
-                  {currentTime.toLocaleDateString("en-US", {
-                    weekday: "long",
-                    month: "short",
-                    day: "numeric",
-                  })}
+                <p className="text-xs text-gray-600">Today</p>
+                <p className="text-sm font-semibold text-gray-900 flex items-center gap-1">
+                  <Calendar className="h-3 w-3" />
+                  <span className="truncate">
+                    {currentTime.toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </span>
                 </p>
               </div>
             </div>
@@ -188,31 +187,31 @@ export default function Index() {
         </div>
       </div>
 
-      <div className="container mx-auto px-3 py-4 space-y-4 sm:px-4 sm:py-6 sm:space-y-6">
+      <div className="container mx-auto px-2 py-3 space-y-3">
         {/* Timetable Manager */}
         {showTimetableManager && (
           <TimetableManager onTimetableUpdate={refreshData} />
         )}
         {/* Stats Overview */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+        <div className="grid grid-cols-3 gap-2">
           {/* Overall Attendance */}
           <Card className={`border-2 ${getStatusBg(stats.percentage)}`}>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg flex items-center gap-2">
-                <BarChart3 className="h-5 w-5" />
-                Overall Attendance
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm flex items-center gap-1">
+                <BarChart3 className="h-4 w-4" />
+                <span className="truncate">Overall</span>
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-0">
               <div className="text-center">
                 <div
-                  className={`text-4xl font-bold ${getStatusColor(stats.percentage)}`}
+                  className={`text-2xl font-bold ${getStatusColor(stats.percentage)}`}
                 >
                   {stats.percentage}%
                 </div>
-                <Progress value={stats.percentage} className="mt-3 h-2" />
-                <p className="text-sm text-gray-600 mt-2">
-                  {stats.attendedLectures} of {stats.totalLectures} lectures
+                <Progress value={stats.percentage} className="mt-2 h-1.5" />
+                <p className="text-xs text-gray-600 mt-1">
+                  {stats.attendedLectures}/{stats.totalLectures}
                 </p>
               </div>
             </CardContent>
@@ -220,36 +219,36 @@ export default function Index() {
 
           {/* Total Lectures */}
           <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg flex items-center gap-2">
-                <BookOpen className="h-5 w-5" />
-                Total Lectures
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm flex items-center gap-1">
+                <BookOpen className="h-4 w-4" />
+                <span className="truncate">Total</span>
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-0">
               <div className="text-center">
-                <div className="text-4xl font-bold text-blue-600">
+                <div className="text-2xl font-bold text-blue-600">
                   {stats.totalLectures}
                 </div>
-                <p className="text-sm text-gray-600 mt-1">Classes attended</p>
+                <p className="text-xs text-gray-600 mt-1">Lectures</p>
               </div>
             </CardContent>
           </Card>
 
           {/* Attended */}
           <Card>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-lg flex items-center gap-2">
-                <CheckCircle className="h-5 w-5" />
-                Attended
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm flex items-center gap-1">
+                <CheckCircle className="h-4 w-4" />
+                <span className="truncate">Attended</span>
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-0">
               <div className="text-center">
-                <div className="text-4xl font-bold text-success">
+                <div className="text-2xl font-bold text-success">
                   {stats.attendedLectures}
                 </div>
-                <p className="text-sm text-gray-600 mt-1">Present in class</p>
+                <p className="text-xs text-gray-600 mt-1">Present</p>
               </div>
             </CardContent>
           </Card>
@@ -257,20 +256,20 @@ export default function Index() {
 
         {/* Today's Classes */}
         <Card>
-          <CardHeader>
-            <CardTitle className="text-xl flex items-center gap-2">
-              <Calendar className="h-6 w-6" />
+          <CardHeader className="pb-3">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <Calendar className="h-5 w-5" />
               Today's Classes
             </CardTitle>
           </CardHeader>
           <CardContent>
             {todaysClasses.length === 0 ? (
-              <div className="text-center py-8">
-                <Calendar className="h-12 w-12 text-gray-400 mx-auto mb-3" />
-                <p className="text-gray-600">No classes scheduled for today</p>
+              <div className="text-center py-6">
+                <Calendar className="h-10 w-10 text-gray-400 mx-auto mb-2" />
+                <p className="text-sm text-gray-600">No classes today</p>
               </div>
             ) : (
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {todaysClasses.map((classItem) => {
                   const attendanceRecord = getAttendanceStatus(
                     classItem.subject.id,
@@ -283,43 +282,42 @@ export default function Index() {
                   return (
                     <div
                       key={classItem.id}
-                      className={`p-4 rounded-lg border-2 transition-all ${
+                      className={`p-3 rounded-lg border-2 transition-all ${
                         isActive
                           ? "bg-blue-50 border-blue-200 shadow-md"
                           : "bg-gray-50 border-gray-200"
                       }`}
                     >
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3 flex-1 min-w-0">
                           <div
-                            className="w-4 h-16 rounded-full"
+                            className="w-3 h-12 rounded-full flex-shrink-0"
                             style={{ backgroundColor: classItem.subject.color }}
                           />
-                          <div>
-                            <h3 className="font-semibold text-gray-900">
+                          <div className="min-w-0 flex-1">
+                            <h3 className="font-semibold text-gray-900 truncate">
                               {classItem.subject.name}
                             </h3>
-                            <p className="text-sm text-gray-600">
+                            <p className="text-sm text-gray-600 truncate">
                               {classItem.subject.code}
                             </p>
-                            <div className="flex items-center gap-2 mt-1">
-                              <Clock className="h-4 w-4 text-gray-400" />
-                              <span className="text-sm text-gray-600">
-                                {formatTime(classItem.startTime)} -{" "}
-                                {formatTime(classItem.endTime)}
+                            <div className="flex items-center gap-1 mt-1">
+                              <Clock className="h-3 w-3 text-gray-400 flex-shrink-0" />
+                              <span className="text-xs text-gray-600">
+                                {formatTime(classItem.startTime)}-{formatTime(classItem.endTime)}
                               </span>
                               {isActive && (
-                                <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full font-medium">
-                                  Live Now
+                                <span className="bg-blue-100 text-blue-800 text-xs px-1.5 py-0.5 rounded-full font-medium ml-1">
+                                  Live
                                 </span>
                               )}
                             </div>
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-shrink-0">
                           {attendanceRecord ? (
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-2">
                               <div className="text-center">
                                 <div
                                   className={`flex items-center gap-1 ${
@@ -329,17 +327,14 @@ export default function Index() {
                                   }`}
                                 >
                                   {attendanceRecord.status === "present" ? (
-                                    <CheckCircle className="h-5 w-5" />
+                                    <CheckCircle className="h-4 w-4" />
                                   ) : (
-                                    <XCircle className="h-5 w-5" />
+                                    <XCircle className="h-4 w-4" />
                                   )}
-                                  <span className="font-medium capitalize">
+                                  <span className="text-xs font-medium capitalize">
                                     {attendanceRecord.status}
                                   </span>
                                 </div>
-                                <p className="text-xs text-gray-500 mt-1">
-                                  Marked
-                                </p>
                               </div>
                               <Button
                                 variant="outline"
@@ -347,17 +342,16 @@ export default function Index() {
                                 onClick={() =>
                                   handleUndoAttendance(classItem.subject.id)
                                 }
-                                className="text-gray-600 hover:text-gray-800"
+                                className="text-gray-600 hover:text-gray-800 px-2 h-7"
                               >
-                                <RotateCcw className="h-4 w-4 mr-1" />
-                                Undo
+                                <RotateCcw className="h-3 w-3" />
                               </Button>
                             </div>
                           ) : (
-                            <div className="flex gap-2">
+                            <div className="flex gap-1">
                               <Button
                                 size="sm"
-                                className="bg-success hover:bg-success/90"
+                                className="bg-success hover:bg-success/90 px-2 h-7 text-xs"
                                 onClick={() =>
                                   handleMarkAttendance(
                                     classItem.subject.id,
@@ -365,12 +359,13 @@ export default function Index() {
                                   )
                                 }
                               >
-                                <CheckCircle className="h-4 w-4 mr-1" />
+                                <CheckCircle className="h-3 w-3 mr-1" />
                                 Present
                               </Button>
                               <Button
                                 size="sm"
                                 variant="destructive"
+                                className="px-2 h-7 text-xs"
                                 onClick={() =>
                                   handleMarkAttendance(
                                     classItem.subject.id,
@@ -378,7 +373,7 @@ export default function Index() {
                                   )
                                 }
                               >
-                                <XCircle className="h-4 w-4 mr-1" />
+                                <XCircle className="h-3 w-3 mr-1" />
                                 Absent
                               </Button>
                             </div>
@@ -395,14 +390,14 @@ export default function Index() {
 
         {/* Subject-wise Stats */}
         <Card>
-          <CardHeader>
-            <CardTitle className="text-xl flex items-center gap-2">
-              <TrendingUp className="h-6 w-6" />
+          <CardHeader className="pb-3">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <TrendingUp className="h-5 w-5" />
               Subject-wise Attendance
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+            <div className="grid grid-cols-2 gap-2">
               {Object.entries(stats.subjectStats).map(
                 ([subjectId, subjectStat]) => {
                   const allSubjects = getAllSubjects();
@@ -413,20 +408,20 @@ export default function Index() {
                   return (
                     <div
                       key={subjectId}
-                      className="p-4 rounded-lg border-2 bg-white"
+                      className="p-3 rounded-lg border-2 bg-white"
                       style={{ borderColor: `${subject.color}20` }}
                     >
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center gap-3">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2 min-w-0 flex-1">
                           <div
-                            className="w-3 h-3 rounded-full"
+                            className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                             style={{ backgroundColor: subject.color }}
                           />
-                          <div>
-                            <h4 className="font-medium text-gray-900">
+                          <div className="min-w-0 flex-1">
+                            <h4 className="font-medium text-gray-900 text-sm truncate">
                               {subject.name}
                             </h4>
-                            <p className="text-xs text-gray-600">
+                            <p className="text-xs text-gray-600 truncate">
                               {subject.code}
                             </p>
                           </div>
@@ -435,7 +430,7 @@ export default function Index() {
                           variant="ghost"
                           size="sm"
                           onClick={() => handleRemoveSubject(subject.id)}
-                          className="text-red-500 hover:text-red-700 hover:bg-red-50 h-6 w-6 p-0"
+                          className="text-red-500 hover:text-red-700 hover:bg-red-50 h-5 w-5 p-0 flex-shrink-0"
                           title={`Remove ${subject.name} subject`}
                         >
                           <Trash2 className="h-3 w-3" />
@@ -443,16 +438,16 @@ export default function Index() {
                       </div>
                       <div className="text-center">
                         <div
-                          className={`text-2xl font-bold ${getStatusColor(subjectStat.percentage)}`}
+                          className={`text-xl font-bold ${getStatusColor(subjectStat.percentage)}`}
                         >
                           {subjectStat.percentage}%
                         </div>
                         <Progress
                           value={subjectStat.percentage}
-                          className="mt-2 h-1.5"
+                          className="mt-1.5 h-1"
                         />
-                        <p className="text-sm text-gray-600 mt-2">
-                          {subjectStat.attended} / {subjectStat.total} classes
+                        <p className="text-xs text-gray-600 mt-1.5">
+                          {subjectStat.attended}/{subjectStat.total}
                         </p>
                       </div>
                     </div>
