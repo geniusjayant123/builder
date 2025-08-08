@@ -5,7 +5,9 @@ Your AttendanceTracker app now has **automated APK building** using GitHub Actio
 ## 🚀 **How to Get Your APK:**
 
 ### **Option 1: Push to GitHub (Recommended)**
+
 1. **Push this code to GitHub**:
+
    ```bash
    git add .
    git commit -m "Add automated APK building"
@@ -21,11 +23,13 @@ Your AttendanceTracker app now has **automated APK building** using GitHub Actio
    - Download the APK from "Artifacts" section
 
 ### **Option 2: GitHub Releases (Automatic)**
+
 - APKs are automatically published to GitHub Releases
 - Go to your repo → "Releases" tab
 - Download the latest APK file
 
 ### **Option 3: Manual Trigger**
+
 - Go to GitHub → Actions tab
 - Click "Build Android APK"
 - Click "Run workflow" → "Run workflow"
@@ -34,6 +38,7 @@ Your AttendanceTracker app now has **automated APK building** using GitHub Actio
 ## 📱 **What Gets Built:**
 
 ✅ **Production-ready APK** with all features:
+
 - Attendance tracking dashboard
 - Custom subject creation
 - Timetable management
@@ -52,6 +57,7 @@ Your AttendanceTracker app now has **automated APK building** using GitHub Actio
 ## 📋 **Next Steps:**
 
 1. **Create GitHub Repository** (if you haven't):
+
    ```bash
    git init
    git add .
@@ -72,18 +78,21 @@ Your AttendanceTracker app now has **automated APK building** using GitHub Actio
 If you prefer not to use GitHub:
 
 ### **Ionic AppFlow** (Recommended)
+
 1. Visit: https://ionic.io/appflow
 2. Sign up for free account
 3. Connect your repository
 4. Build APK online
 
 ### **Netlify + Build**
+
 1. Deploy to Netlify
 2. Use Netlify Build plugins for mobile builds
 
 ## 📞 **Need Help?**
 
 If you encounter any issues:
+
 1. Check GitHub Actions logs for errors
 2. Ensure your repository is public (or you have GitHub Pro for private repos)
 3. Verify all files are committed and pushed
