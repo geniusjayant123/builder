@@ -23,6 +23,7 @@ import {
   removeSubjectFromDay,
   getAllSubjects,
   createCustomSubject,
+  removeCustomSubject,
   type WeeklyTimetable,
   type CustomTimeSlot,
 } from "@/lib/attendance";
