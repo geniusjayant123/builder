@@ -152,7 +152,6 @@ export const autoMarkAbsent = () => {
   const records = getAttendanceData();
   const today = new Date().toISOString().split('T')[0];
   const currentTime = new Date();
-  const currentTimeString = currentTime.toTimeString().slice(0, 5); // HH:MM format
 
   // Get today's classes that have ended but aren't marked
   const todaysClasses = getTodaysClasses();
