@@ -139,11 +139,11 @@ export default function TimetableManager({ onTimetableUpdate }: TimetableManager
                       <SelectValue placeholder="Select a subject" />
                     </SelectTrigger>
                     <SelectContent>
-                      {sampleSubjects.map(subject => (
+                      {allSubjects.map(subject => (
                         <SelectItem key={subject.id} value={subject.id}>
                           <div className="flex items-center gap-2">
-                            <div 
-                              className="w-3 h-3 rounded-full" 
+                            <div
+                              className="w-3 h-3 rounded-full"
                               style={{ backgroundColor: subject.color }}
                             />
                             {subject.name} ({subject.code})
@@ -152,6 +152,32 @@ export default function TimetableManager({ onTimetableUpdate }: TimetableManager
                       ))}
                     </SelectContent>
                   </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="custom-subject">Or Create New Subject</Label>
+                  <div className="flex gap-2">
+                    <Input
+                      id="custom-subject"
+                      placeholder="Enter subject name"
+                      value={customSubjectName}
+                      onChange={(e) => setCustomSubjectName(e.target.value)}
+                      onKeyPress={(e) => {
+                        if (e.key === 'Enter') {
+                          handleCreateCustomSubject();
+                        }
+                      }}
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={handleCreateCustomSubject}
+                      disabled={!customSubjectName.trim()}
+                    >
+                      Create
+                    </Button>
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
