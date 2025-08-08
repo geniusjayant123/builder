@@ -17,11 +17,12 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { 
-  getCustomTimetable, 
-  addSubjectToDay, 
-  removeSubjectFromDay, 
-  sampleSubjects,
+import {
+  getCustomTimetable,
+  addSubjectToDay,
+  removeSubjectFromDay,
+  getAllSubjects,
+  createCustomSubject,
   type WeeklyTimetable,
   type CustomTimeSlot
 } from "@/lib/attendance";
