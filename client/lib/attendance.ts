@@ -125,14 +125,15 @@ export const markAttendance = (subjectId: string, date: string, status: 'present
 export const calculateAttendanceStats = (): AttendanceStats => {
   const records = getAttendanceData();
   const subjectStats: Record<string, { total: number; attended: number; percentage: number }> = {};
-  
+  const allSubjects = getAllSubjects();
+
   // Calculate stats for each subject
-  sampleSubjects.forEach(subject => {
+  allSubjects.forEach(subject => {
     const subjectRecords = records.filter(r => r.subjectId === subject.id);
     const total = subjectRecords.length;
     const attended = subjectRecords.filter(r => r.status === 'present').length;
     const percentage = total > 0 ? Math.round((attended / total) * 100) : 0;
-    
+
     subjectStats[subject.id] = { total, attended, percentage };
   });
   
