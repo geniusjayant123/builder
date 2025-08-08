@@ -13,15 +13,16 @@ import {
   type AttendanceStats,
   type TimeSlot
 } from "@/lib/attendance";
-import { 
-  Calendar, 
-  TrendingUp, 
-  BookOpen, 
-  CheckCircle, 
-  XCircle, 
+import {
+  Calendar,
+  TrendingUp,
+  BookOpen,
+  CheckCircle,
+  XCircle,
   Clock,
   BarChart3,
-  GraduationCap
+  GraduationCap,
+  Settings
 } from "lucide-react";
 
 export default function Index() {
