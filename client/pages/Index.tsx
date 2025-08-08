@@ -13,6 +13,7 @@ import {
   undoAttendance,
   getAllSubjects,
   removeCustomSubject,
+  removeAnySubject,
   editAttendance,
   type AttendanceStats,
   type TimeSlot,
