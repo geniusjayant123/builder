@@ -53,6 +53,7 @@ export default function TimetableManager({ onTimetableUpdate }: TimetableManager
 
   useEffect(() => {
     setTimetable(getCustomTimetable());
+    setAllSubjects(getAllSubjects());
   }, []);
 
   const handleAddSubject = () => {
