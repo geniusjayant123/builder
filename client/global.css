@@ -115,6 +115,21 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Zoom Support */
+  html {
+    touch-action: manipulation;
+  }
+
+  /* Prevent layout breaks during zoom */
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Smooth zoom experience */
+  .container {
+    transition: none;
+  }
 }
 
 /* Safe Area Support for Mobile Devices */
