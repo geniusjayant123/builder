@@ -150,13 +150,13 @@ export default function TimetableManager({
                   </Select>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="subject">Subject</Label>
+                <div className="space-y-1">
+                  <Label htmlFor="subject" className="text-sm">Subject</Label>
                   <Select
                     value={selectedSubject}
                     onValueChange={setSelectedSubject}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="h-9">
                       <SelectValue placeholder="Select a subject" />
                     </SelectTrigger>
                     <SelectContent>
@@ -175,11 +175,12 @@ export default function TimetableManager({
                   </Select>
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="custom-subject">Or Create New Subject</Label>
+                <div className="space-y-1">
+                  <Label htmlFor="custom-subject" className="text-sm">Or Create New Subject</Label>
                   <div className="flex gap-2">
                     <Input
                       id="custom-subject"
+                      className="h-9"
                       placeholder="Enter subject name"
                       value={customSubjectName}
                       onChange={(e) => setCustomSubjectName(e.target.value)}
@@ -193,6 +194,7 @@ export default function TimetableManager({
                       type="button"
                       variant="outline"
                       size="sm"
+                      className="h-9 px-3 text-xs"
                       onClick={handleCreateCustomSubject}
                       disabled={!customSubjectName.trim()}
                     >
@@ -201,21 +203,23 @@ export default function TimetableManager({
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="start-time">Start Time</Label>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <Label htmlFor="start-time" className="text-sm">Start Time</Label>
                     <Input
                       id="start-time"
                       type="time"
+                      className="h-9"
                       value={startTime}
                       onChange={(e) => setStartTime(e.target.value)}
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="end-time">End Time</Label>
+                  <div className="space-y-1">
+                    <Label htmlFor="end-time" className="text-sm">End Time</Label>
                     <Input
                       id="end-time"
                       type="time"
+                      className="h-9"
                       value={endTime}
                       onChange={(e) => setEndTime(e.target.value)}
                     />
@@ -224,7 +228,7 @@ export default function TimetableManager({
 
                 <Button
                   onClick={handleAddSubject}
-                  className="w-full"
+                  className="w-full h-9 text-sm"
                   disabled={!selectedDay || !selectedSubject}
                 >
                   Add to Timetable
@@ -235,19 +239,19 @@ export default function TimetableManager({
         </div>
       </CardHeader>
       <CardContent>
-        <div className="space-y-4">
+        <div className="space-y-3">
           {days.map((day) => (
-            <div key={day} className="border rounded-lg p-4">
-              <div className="flex items-center gap-2 mb-3">
-                <Calendar className="h-5 w-5 text-primary" />
-                <h3 className="font-semibold text-lg">{day}</h3>
-                <span className="text-sm text-gray-500">
-                  ({(timetable[day] || []).length} subjects)
+            <div key={day} className="border rounded-lg p-3">
+              <div className="flex items-center gap-2 mb-2">
+                <Calendar className="h-4 w-4 text-primary" />
+                <h3 className="font-semibold text-base">{day}</h3>
+                <span className="text-xs text-gray-500">
+                  ({(timetable[day] || []).length})
                 </span>
               </div>
 
               {(timetable[day] || []).length === 0 ? (
-                <div className="text-center py-6 text-gray-500">
+                <div className="text-center py-4 text-gray-500 text-sm">
                   <BookOpen className="h-8 w-8 mx-auto mb-2 opacity-50" />
                   <p>No subjects scheduled for {day}</p>
                 </div>
