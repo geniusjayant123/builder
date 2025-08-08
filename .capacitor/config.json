@@ -1,0 +1,8 @@
+{
+  "appId": "com.attendance.tracker",
+  "appName": "AttendanceTracker",
+  "webDir": "dist/spa",
+  "server": {
+    "androidScheme": "https"
+  }
+}
