@@ -67,37 +67,38 @@ export default function DatePicker({ isOpen, onClose, onSave }: DatePickerProps)
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-sm mx-2 max-h-[85vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
+          <DialogTitle className="flex items-center gap-2 text-lg">
             <CalendarIcon className="h-5 w-5" />
-            Edit Historical Attendance
+            Edit Attendance
           </DialogTitle>
         </DialogHeader>
         
-        <div className="space-y-4">
+        <div className="space-y-3">
           {/* Date Selection */}
-          <div className="space-y-2">
-            <Label htmlFor="date">Select Date</Label>
+          <div className="space-y-1">
+            <Label htmlFor="date" className="text-sm">Select Date</Label>
             <Input
               id="date"
               type="date"
+              className="h-9"
               value={selectedDate}
               onChange={(e) => handleDateChange(e.target.value)}
               max={new Date().toISOString().split('T')[0]} // Can't select future dates
             />
-            <p className="text-sm text-gray-600">
+            <p className="text-xs text-gray-600">
               {formatDate(selectedDate)}
             </p>
           </div>
 
           {/* Classes for Selected Date */}
-          <div className="space-y-3">
-            <h3 className="font-semibold text-lg">Classes on this date:</h3>
+          <div className="space-y-2">
+            <h3 className="font-semibold text-base">Classes on this date:</h3>
             
             {classes.length === 0 ? (
-              <Card className="p-6 text-center">
-                <div className="text-gray-500">
+              <Card className="p-4 text-center">
+                <div className="text-gray-500 text-sm">
                   <CalendarIcon className="h-8 w-8 mx-auto mb-2 opacity-50" />
                   <p>No classes scheduled for this day</p>
                 </div>
