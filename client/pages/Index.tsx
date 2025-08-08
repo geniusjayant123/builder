@@ -460,6 +460,13 @@ export default function Index() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Date Picker Modal */}
+      <DatePicker
+        isOpen={showDatePicker}
+        onClose={() => setShowDatePicker(false)}
+        onSave={refreshData}
+      />
     </div>
   );
 }
