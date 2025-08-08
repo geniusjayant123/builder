@@ -430,17 +430,15 @@ export default function Index() {
                             </p>
                           </div>
                         </div>
-                        {subject.id.startsWith('custom-') && (
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => handleRemoveSubject(subject.id)}
-                            className="text-red-500 hover:text-red-700 hover:bg-red-50 h-6 w-6 p-0"
-                            title="Remove custom subject"
-                          >
-                            <Trash2 className="h-3 w-3" />
-                          </Button>
-                        )}
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleRemoveSubject(subject.id)}
+                          className="text-red-500 hover:text-red-700 hover:bg-red-50 h-6 w-6 p-0"
+                          title={`Remove ${subject.name} subject`}
+                        >
+                          <Trash2 className="h-3 w-3" />
+                        </Button>
                       </div>
                       <div className="text-center">
                         <div
