@@ -273,24 +273,35 @@ export default function Index() {
                         
                         <div className="flex items-center gap-2">
                           {attendanceRecord ? (
-                            <div className="text-center">
-                              <div className={`flex items-center gap-1 ${
-                                attendanceRecord.status === 'present' 
-                                  ? 'text-success' 
-                                  : 'text-destructive'
-                              }`}>
-                                {attendanceRecord.status === 'present' ? (
-                                  <CheckCircle className="h-5 w-5" />
-                                ) : (
-                                  <XCircle className="h-5 w-5" />
-                                )}
-                                <span className="font-medium capitalize">
-                                  {attendanceRecord.status}
-                                </span>
+                            <div className="flex items-center gap-3">
+                              <div className="text-center">
+                                <div className={`flex items-center gap-1 ${
+                                  attendanceRecord.status === 'present'
+                                    ? 'text-success'
+                                    : 'text-destructive'
+                                }`}>
+                                  {attendanceRecord.status === 'present' ? (
+                                    <CheckCircle className="h-5 w-5" />
+                                  ) : (
+                                    <XCircle className="h-5 w-5" />
+                                  )}
+                                  <span className="font-medium capitalize">
+                                    {attendanceRecord.status}
+                                  </span>
+                                </div>
+                                <p className="text-xs text-gray-500 mt-1">
+                                  Marked
+                                </p>
                               </div>
-                              <p className="text-xs text-gray-500 mt-1">
-                                Marked
-                              </p>
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => handleUndoAttendance(classItem.subject.id)}
+                                className="text-gray-600 hover:text-gray-800"
+                              >
+                                <RotateCcw className="h-4 w-4 mr-1" />
+                                Undo
+                              </Button>
                             </div>
                           ) : (
                             <div className="flex gap-2">
