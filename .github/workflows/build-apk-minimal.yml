@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       debug:
-        description: 'Enable debug output'
+        description: "Enable debug output"
         required: false
-        default: 'false'
+        default: "false"
         type: boolean
 
 jobs:
@@ -21,14 +21,14 @@ jobs:
       - name: Setup Node 18
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: "18"
+          cache: "npm"
 
       - name: Setup JDK 11
         uses: actions/setup-java@v3
         with:
-          java-version: '11'
-          distribution: 'temurin'
+          java-version: "11"
+          distribution: "temurin"
 
       - name: Install dependencies
         run: |
@@ -99,7 +99,7 @@ jobs:
         run: |
           echo "=== Looking for APK files ==="
           find android/ -name "*.apk" -type f
-          
+
       - name: Copy APK to root
         run: |
           mkdir -p output
