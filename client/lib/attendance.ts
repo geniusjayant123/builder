@@ -85,7 +85,9 @@ export const saveCustomSubjects = (subjects: Subject[]) => {
 };
 
 export const getAllSubjects = (): Subject[] => {
-  return [...defaultSubjects, ...getCustomSubjects()];
+  const hiddenSubjects = JSON.parse(localStorage.getItem('hiddenSubjects') || '[]');
+  const visibleDefaultSubjects = defaultSubjects.filter(s => !hiddenSubjects.includes(s.id));
+  return [...visibleDefaultSubjects, ...getCustomSubjects()];
 };
 
 // For backward compatibility
