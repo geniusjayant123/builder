@@ -146,22 +146,26 @@ export default function Index() {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 flex-wrap">
               <Button
                 variant="outline"
                 onClick={() => setShowTimetableManager(!showTimetableManager)}
-                className="flex items-center gap-2"
+                className="flex items-center gap-1 text-xs sm:text-sm"
+                size="sm"
               >
-                <Settings className="h-4 w-4" />
-                {showTimetableManager ? "Hide" : "Manage"} Timetable
+                <Settings className="h-3 w-3 sm:h-4 sm:w-4" />
+                <span className="hidden sm:inline">{showTimetableManager ? "Hide" : "Manage"}</span>
+                <span className="sm:hidden">Manage</span>
               </Button>
               <Button
                 variant="outline"
                 onClick={() => setShowDatePicker(true)}
-                className="flex items-center gap-2"
+                className="flex items-center gap-1 text-xs sm:text-sm"
+                size="sm"
               >
-                <CalendarDays className="h-4 w-4" />
-                Edit History
+                <CalendarDays className="h-3 w-3 sm:h-4 sm:w-4" />
+                <span className="hidden sm:inline">Edit History</span>
+                <span className="sm:hidden">History</span>
               </Button>
               <div
                 className="text-right cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors"
