@@ -277,6 +277,40 @@ export const removeSubjectFromDay = (day: string, slotId: string) => {
   return timetable;
 };
 
+export const createCustomSubject = (name: string, code?: string): Subject => {
+  const customSubjects = getCustomSubjects();
+  const allSubjects = getAllSubjects();
+
+  // Generate a unique ID
+  const id = `custom-${Date.now()}`;
+
+  // Generate a code if not provided
+  const subjectCode = code || name.substring(0, 3).toUpperCase() + '101';
+
+  // Assign a color from the palette
+  const colorIndex = allSubjects.length % subjectColors.length;
+  const color = subjectColors[colorIndex];
+
+  const newSubject: Subject = {
+    id,
+    name,
+    code: subjectCode,
+    color
+  };
+
+  customSubjects.push(newSubject);
+  saveCustomSubjects(customSubjects);
+
+  return newSubject;
+};
+
+export const undoAttendance = (subjectId: string, date: string) => {
+  const records = getAttendanceData();
+  const filteredRecords = records.filter(r => !(r.subjectId === subjectId && r.date === date));
+  saveAttendanceData(filteredRecords);
+  return filteredRecords;
+};
+
 export const initializeSampleData = () => {
   const existingRecords = getAttendanceData();
   if (existingRecords.length === 0) {
