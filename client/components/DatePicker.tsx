@@ -99,38 +99,38 @@ export default function DatePicker({ isOpen, onClose, onSave }: DatePickerProps)
             {classes.length === 0 ? (
               <Card className="p-4 text-center">
                 <div className="text-gray-500 text-sm">
-                  <CalendarIcon className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                  <p>No classes scheduled for this day</p>
+                  <CalendarIcon className="h-6 w-6 mx-auto mb-1 opacity-50" />
+                  <p>No classes for this day</p>
                 </div>
               </Card>
             ) : (
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {classes.map((classItem) => {
                   const attendanceRecord = getAttendanceStatus(classItem.subject.id);
-                  
+
                   return (
-                    <Card key={classItem.id} className="p-4">
+                    <Card key={classItem.id} className="p-3">
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div 
-                            className="w-4 h-16 rounded-full"
+                        <div className="flex items-center gap-2 min-w-0 flex-1">
+                          <div
+                            className="w-3 h-12 rounded-full flex-shrink-0"
                             style={{ backgroundColor: classItem.subject.color }}
                           />
-                          <div>
-                            <h4 className="font-medium">{classItem.subject.name}</h4>
-                            <p className="text-sm text-gray-600">{classItem.subject.code}</p>
-                            <p className="text-sm text-gray-500">
-                              {formatTime(classItem.startTime)} - {formatTime(classItem.endTime)}
+                          <div className="min-w-0 flex-1">
+                            <h4 className="font-medium text-sm truncate">{classItem.subject.name}</h4>
+                            <p className="text-xs text-gray-600 truncate">{classItem.subject.code}</p>
+                            <p className="text-xs text-gray-500">
+                              {formatTime(classItem.startTime)}-{formatTime(classItem.endTime)}
                             </p>
                           </div>
                         </div>
                         
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1 flex-shrink-0">
                           {attendanceRecord ? (
-                            <div className="flex items-center gap-2">
-                              <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                                attendanceRecord.status === 'present' 
-                                  ? 'bg-green-100 text-green-800' 
+                            <div className="flex items-center gap-1">
+                              <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                attendanceRecord.status === 'present'
+                                  ? 'bg-green-100 text-green-800'
                                   : 'bg-red-100 text-red-800'
                               }`}>
                                 {attendanceRecord.status === 'present' ? 'Present' : 'Absent'}
@@ -138,30 +138,32 @@ export default function DatePicker({ isOpen, onClose, onSave }: DatePickerProps)
                               <Button
                                 variant="outline"
                                 size="sm"
+                                className="h-7 w-7 p-0"
                                 onClick={() => handleAttendanceEdit(
-                                  classItem.subject.id, 
+                                  classItem.subject.id,
                                   attendanceRecord.status === 'present' ? 'absent' : 'present'
                                 )}
                               >
-                                <Edit3 className="h-4 w-4" />
+                                <Edit3 className="h-3 w-3" />
                               </Button>
                             </div>
                           ) : (
-                            <div className="flex gap-2">
+                            <div className="flex gap-1">
                               <Button
                                 size="sm"
-                                className="bg-green-600 hover:bg-green-700"
+                                className="bg-green-600 hover:bg-green-700 px-2 h-7 text-xs"
                                 onClick={() => handleAttendanceEdit(classItem.subject.id, 'present')}
                               >
-                                <Check className="h-4 w-4 mr-1" />
+                                <Check className="h-3 w-3 mr-1" />
                                 Present
                               </Button>
                               <Button
                                 size="sm"
                                 variant="destructive"
+                                className="px-2 h-7 text-xs"
                                 onClick={() => handleAttendanceEdit(classItem.subject.id, 'absent')}
                               >
-                                <X className="h-4 w-4 mr-1" />
+                                <X className="h-3 w-3 mr-1" />
                                 Absent
                               </Button>
                             </div>
@@ -176,11 +178,11 @@ export default function DatePicker({ isOpen, onClose, onSave }: DatePickerProps)
           </div>
 
           {/* Action Buttons */}
-          <div className="flex justify-end gap-2 pt-4 border-t">
-            <Button variant="outline" onClick={onClose}>
+          <div className="flex justify-end gap-2 pt-3 border-t">
+            <Button variant="outline" className="h-9 text-sm" onClick={onClose}>
               Cancel
             </Button>
-            <Button onClick={() => { onSave(); onClose(); }}>
+            <Button className="h-9 text-sm" onClick={() => { onSave(); onClose(); }}>
               Save Changes
             </Button>
           </div>
