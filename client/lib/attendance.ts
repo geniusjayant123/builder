@@ -124,6 +124,45 @@ export const getAttendanceForDate = (subjectId: string, date: string): Attendanc
   return records.find(r => r.subjectId === subjectId && r.date === date);
 };
 
+export const autoMarkAbsent = () => {
+  const records = getAttendanceData();
+  const today = new Date().toISOString().split('T')[0];
+  const currentTime = new Date();
+  const currentTimeString = currentTime.toTimeString().slice(0, 5); // HH:MM format
+
+  // Get today's classes that have ended but aren't marked
+  const todaysClasses = getTodaysClasses();
+  let hasNewAbsents = false;
+
+  todaysClasses.forEach(classItem => {
+    const classEndTime = classItem.endTime;
+    const existingRecord = records.find(r => r.subjectId === classItem.subject.id && r.date === today);
+
+    // Check if class has ended (add 5 minute buffer)
+    const classEnd = new Date(`${today}T${classEndTime}:00`);
+    classEnd.setMinutes(classEnd.getMinutes() + 5); // 5 minute grace period
+
+    if (currentTime > classEnd && !existingRecord) {
+      // Auto-mark as absent
+      const newRecord: AttendanceRecord = {
+        id: `${classItem.subject.id}-${today}`,
+        subjectId: classItem.subject.id,
+        date: today,
+        status: 'absent',
+        markedAt: new Date().toISOString(),
+      };
+      records.push(newRecord);
+      hasNewAbsents = true;
+    }
+  });
+
+  if (hasNewAbsents) {
+    saveAttendanceData(records);
+  }
+
+  return hasNewAbsents;
+};
+
 export const initializeSampleData = () => {
   const existingRecords = getAttendanceData();
   if (existingRecords.length === 0) {
