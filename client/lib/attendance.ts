@@ -545,12 +545,6 @@ export const initializeSampleData = () => {
   }
 };
 
-export const undoAttendance = (subjectId: string, date: string) => {
-  const records = getAttendanceData();
-  const filteredRecords = records.filter(r => !(r.subjectId === subjectId && r.date === date));
-  saveAttendanceData(filteredRecords);
-  return filteredRecords;
-};
 
 export const removeCustomSubject = (subjectId: string) => {
   const customSubjects = getCustomSubjects();
