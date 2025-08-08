@@ -187,7 +187,7 @@ export default function Index() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-6 space-y-6">
+      <div className="container mx-auto px-3 py-4 space-y-4 sm:px-4 sm:py-6 sm:space-y-6">
         {/* Timetable Manager */}
         {showTimetableManager && (
           <TimetableManager onTimetableUpdate={refreshData} />
