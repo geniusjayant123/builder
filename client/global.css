@@ -117,6 +117,15 @@
   }
 }
 
+/* Safe Area Support for Mobile Devices */
+.pt-safe-top {
+  padding-top: env(safe-area-inset-top, 20px);
+}
+
+.pb-safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+}
+
 /* Mobile 16:9 Optimizations */
 @media screen and (max-width: 768px) {
   /* Optimize for mobile viewport */
