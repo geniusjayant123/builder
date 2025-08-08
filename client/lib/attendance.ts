@@ -596,6 +596,18 @@ export const removeAnySubject = (subjectId: string) => {
   return { success: true };
 };
 
+export const getHiddenSubjects = (): Subject[] => {
+  const hiddenSubjects = JSON.parse(localStorage.getItem('hiddenSubjects') || '[]');
+  return defaultSubjects.filter(s => hiddenSubjects.includes(s.id));
+};
+
+export const restoreSubject = (subjectId: string) => {
+  const hiddenSubjects = JSON.parse(localStorage.getItem('hiddenSubjects') || '[]');
+  const filteredHidden = hiddenSubjects.filter((id: string) => id !== subjectId);
+  localStorage.setItem('hiddenSubjects', JSON.stringify(filteredHidden));
+  return { success: true };
+};
+
 export const getAttendanceForDateAndSubject = (date: string, subjectId?: string): AttendanceRecord[] => {
   const records = getAttendanceData();
   if (subjectId) {
