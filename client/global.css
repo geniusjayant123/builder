@@ -116,9 +116,9 @@
     @apply bg-background text-foreground;
   }
 
-  /* Zoom Support */
+  /* Enable full zoom support */
   html {
-    touch-action: manipulation;
+    touch-action: pan-x pan-y pinch-zoom;
   }
 
   /* Prevent layout breaks during zoom */
@@ -126,9 +126,9 @@
     box-sizing: border-box;
   }
 
-  /* Smooth zoom experience */
-  .container {
-    transition: none;
+  /* Allow zooming on all elements */
+  body, * {
+    touch-action: pan-x pan-y pinch-zoom;
   }
 }
 
