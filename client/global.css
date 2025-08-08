@@ -119,7 +119,7 @@
 
 /* Safe Area Support for Mobile Devices */
 .pt-safe-top {
-  padding-top: env(safe-area-inset-top, 20px);
+  padding-top: env(safe-area-inset-top, 50px);
 }
 
 .pb-safe-bottom {
