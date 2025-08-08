@@ -251,9 +251,9 @@ export default function TimetableManager({
               </div>
 
               {(timetable[day] || []).length === 0 ? (
-                <div className="text-center py-4 text-gray-500 text-sm">
-                  <BookOpen className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                  <p>No subjects scheduled for {day}</p>
+                <div className="text-center py-3 text-gray-500 text-sm">
+                  <BookOpen className="h-6 w-6 mx-auto mb-1 opacity-50" />
+                  <p>No subjects for {day}</p>
                 </div>
               ) : (
                 <div className="space-y-2">
@@ -262,35 +262,35 @@ export default function TimetableManager({
                     return (
                       <div
                         key={slot.id}
-                        className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border"
+                        className="flex items-center justify-between p-2.5 bg-gray-50 rounded-lg border"
                       >
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2 min-w-0 flex-1">
                           <div
-                            className="w-4 h-4 rounded-full"
+                            className="w-3 h-3 rounded-full flex-shrink-0"
                             style={{ backgroundColor: subject.color }}
                           />
-                          <div>
-                            <p className="font-medium">{subject.name}</p>
-                            <p className="text-sm text-gray-600">
+                          <div className="min-w-0 flex-1">
+                            <p className="font-medium text-sm truncate">{subject.name}</p>
+                            <p className="text-xs text-gray-600 truncate">
                               {subject.code}
                             </p>
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-3">
-                          <div className="flex items-center gap-1 text-sm text-gray-600">
-                            <Clock className="h-4 w-4" />
+                        <div className="flex items-center gap-2 flex-shrink-0">
+                          <div className="flex items-center gap-1 text-xs text-gray-600">
+                            <Clock className="h-3 w-3" />
                             <span>
-                              {formatTime(slot.startTime)} -{" "}
-                              {formatTime(slot.endTime)}
+                              {formatTime(slot.startTime)}-{formatTime(slot.endTime)}
                             </span>
                           </div>
                           <Button
                             variant="destructive"
                             size="sm"
+                            className="h-7 w-7 p-0"
                             onClick={() => handleRemoveSubject(day, slot.id)}
                           >
-                            <Trash2 className="h-4 w-4" />
+                            <Trash2 className="h-3 w-3" />
                           </Button>
                         </div>
                       </div>
