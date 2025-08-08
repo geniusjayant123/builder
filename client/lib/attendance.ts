@@ -559,6 +559,41 @@ export const removeCustomSubject = (subjectId: string) => {
   return { subjects: filteredSubjects, records: filteredRecords };
 };
 
+export const removeAnySubject = (subjectId: string) => {
+  // Create a hidden subjects list to track removed default subjects
+  const hiddenSubjects = JSON.parse(localStorage.getItem('hiddenSubjects') || '[]');
+
+  // Check if it's a custom subject
+  const customSubjects = getCustomSubjects();
+  const isCustomSubject = customSubjects.some(s => s.id === subjectId);
+
+  if (isCustomSubject) {
+    // Remove from custom subjects
+    const filteredCustomSubjects = customSubjects.filter(s => s.id !== subjectId);
+    saveCustomSubjects(filteredCustomSubjects);
+  } else {
+    // Add default subject to hidden list
+    if (!hiddenSubjects.includes(subjectId)) {
+      hiddenSubjects.push(subjectId);
+      localStorage.setItem('hiddenSubjects', JSON.stringify(hiddenSubjects));
+    }
+  }
+
+  // Remove all attendance records for this subject
+  const records = getAttendanceData();
+  const filteredRecords = records.filter(r => r.subjectId !== subjectId);
+  saveAttendanceData(filteredRecords);
+
+  // Remove from timetable
+  const timetable = getCustomTimetable();
+  Object.keys(timetable).forEach(day => {
+    timetable[day] = timetable[day].filter(slot => slot.subjectId !== subjectId);
+  });
+  saveCustomTimetable(timetable);
+
+  return { success: true };
+};
+
 export const getAttendanceForDateAndSubject = (date: string, subjectId?: string): AttendanceRecord[] => {
   const records = getAttendanceData();
   if (subjectId) {
