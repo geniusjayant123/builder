@@ -82,6 +82,19 @@ export default function Index() {
     refreshData();
   };
 
+  const handleRemoveSubject = (subjectId: string) => {
+    const subject = getAllSubjects().find(s => s.id === subjectId);
+    if (subject && confirm(`Are you sure you want to remove "${subject.name}"? This will delete all attendance records for this subject.`)) {
+      removeCustomSubject(subjectId);
+      refreshData();
+    }
+  };
+
+  const handleEditAttendance = (subjectId: string, date: string, status: 'present' | 'absent') => {
+    editAttendance(subjectId, date, status);
+    refreshData();
+  };
+
   const getStatusColor = (percentage: number) => {
     if (percentage >= 85) return "text-success";
     if (percentage >= 75) return "text-warning";
