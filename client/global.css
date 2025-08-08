@@ -133,6 +133,11 @@
     font-size: 14px;
   }
 
+  /* Additional safe area padding for small screens */
+  .pt-safe-top {
+    padding-top: env(safe-area-inset-top, 30px);
+  }
+
   /* Ensure content fits within viewport */
   .container {
     max-width: 100vw;
