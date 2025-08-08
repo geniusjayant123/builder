@@ -29,15 +29,32 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          api-level: 33
+          target: google_apis
+          arch: x86_64
 
-      - name: Install dependencies
-        run: npm install
+      - name: Accept Android SDK licenses
+        run: yes | sdkmanager --licenses
+
+      - name: Install Android SDK components
+        run: |
+          sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.2"
+          sdkmanager "extras;android;m2repository" "extras;google;m2repository"
+
+      - name: Clean install dependencies
+        run: |
+          rm -rf node_modules package-lock.json
+          npm install
 
       - name: Build web app for mobile
         run: npm run build:mobile
 
-      - name: Add Android platform
-        run: npx cap add android
+      - name: Initialize Capacitor (skip if exists)
+        run: |
+          if [ ! -d "android" ]; then
+            npx cap add android
+          fi
 
       - name: Copy web assets
         run: npx cap copy android
@@ -45,13 +62,16 @@ jobs:
       - name: Sync Capacitor
         run: npx cap sync android
 
-      - name: Make gradlew executable
-        run: chmod +x android/gradlew
+      - name: Set Android permissions and clean
+        run: |
+          chmod +x android/gradlew
+          cd android
+          ./gradlew clean
 
-      - name: Build debug APK
+      - name: Build debug APK with verbose output
         run: |
           cd android
-          ./gradlew assembleDebug
+          ./gradlew assembleDebug --stacktrace --info
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
