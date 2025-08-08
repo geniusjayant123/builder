@@ -131,8 +131,8 @@ export default function Index() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 overflow-x-hidden">
       {/* Header */}
       <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
+        <div className="container mx-auto px-3 py-3">
+          <div className="flex items-center justify-between flex-wrap gap-2">
             <div className="flex items-center gap-3">
               <div className="bg-primary/10 p-2 rounded-xl">
                 <GraduationCap className="h-8 w-8 text-primary" />
