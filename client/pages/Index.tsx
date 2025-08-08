@@ -140,7 +140,7 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 overflow-x-hidden">
       {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-10 pt-safe-top">
+      <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-10 pt-safe-top mt-4 md:mt-0">
         <div className="container mx-auto px-2 py-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
