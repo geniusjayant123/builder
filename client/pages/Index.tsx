@@ -65,6 +65,12 @@ export default function Index() {
     refreshData();
   };
 
+  const handleUndoAttendance = (subjectId: string) => {
+    const today = new Date().toISOString().split('T')[0];
+    undoAttendance(subjectId, today);
+    refreshData();
+  };
+
   const getStatusColor = (percentage: number) => {
     if (percentage >= 85) return 'text-success';
     if (percentage >= 75) return 'text-warning';
