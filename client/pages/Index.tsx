@@ -29,6 +29,9 @@ import {
   GraduationCap,
   Settings,
   RotateCcw,
+  Trash2,
+  Edit3,
+  CalendarDays,
 } from "lucide-react";
 
 export default function Index() {
