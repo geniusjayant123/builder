@@ -35,10 +35,14 @@ export default function Index() {
   useEffect(() => {
     initializeSampleData();
     refreshData();
-    
-    // Update current time every minute
+
+    // Update current time and check for auto-absent every minute
     const timer = setInterval(() => {
       setCurrentTime(new Date());
+      const hasNewAbsents = autoMarkAbsent();
+      if (hasNewAbsents) {
+        refreshData();
+      }
     }, 60000);
 
     return () => clearInterval(timer);
