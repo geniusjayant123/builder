@@ -10,6 +10,8 @@ import {
   getAttendanceForDate,
   initializeSampleData,
   autoMarkAbsent,
+  undoAttendance,
+  getAllSubjects,
   type AttendanceStats,
   type TimeSlot
 } from "@/lib/attendance";
