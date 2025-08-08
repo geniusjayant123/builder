@@ -13,6 +13,18 @@ export interface TimeSlot {
   subject: Subject;
 }
 
+export interface CustomTimeSlot {
+  id: string;
+  day: string;
+  startTime: string;
+  endTime: string;
+  subjectId: string;
+}
+
+export interface WeeklyTimetable {
+  [day: string]: CustomTimeSlot[];
+}
+
 export interface AttendanceRecord {
   id: string;
   subjectId: string;
