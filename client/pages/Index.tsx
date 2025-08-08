@@ -334,12 +334,16 @@ export default function Index() {
                       </div>
                     </div>
                     <div className="text-center">
-                      <div 
+                      <div
                         className={`text-2xl font-bold ${getStatusColor(subjectStat.percentage)}`}
                       >
                         {subjectStat.percentage}%
                       </div>
-                      <p className="text-sm text-gray-600">
+                      <Progress
+                        value={subjectStat.percentage}
+                        className="mt-2 h-1.5"
+                      />
+                      <p className="text-sm text-gray-600 mt-2">
                         {subjectStat.attended} / {subjectStat.total} classes
                       </p>
                     </div>
