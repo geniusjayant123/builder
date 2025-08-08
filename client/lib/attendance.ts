@@ -44,14 +44,37 @@ export interface AttendanceStats {
   }>;
 }
 
-// Sample data for demonstration
-export const sampleSubjects: Subject[] = [
+// Default subjects
+const defaultSubjects: Subject[] = [
   { id: '1', name: 'Mathematics', code: 'MATH101', color: '#3B82F6' },
   { id: '2', name: 'Physics', code: 'PHY101', color: '#EF4444' },
   { id: '3', name: 'Chemistry', code: 'CHE101', color: '#8B5CF6' },
   { id: '4', name: 'Computer Science', code: 'CS101', color: '#10B981' },
   { id: '5', name: 'English', code: 'ENG101', color: '#F59E0B' },
 ];
+
+// Color palette for custom subjects
+const subjectColors = [
+  '#3B82F6', '#EF4444', '#8B5CF6', '#10B981', '#F59E0B',
+  '#EC4899', '#6366F1', '#14B8A6', '#F97316', '#84CC16',
+  '#8B5A2B', '#DC2626', '#7C3AED', '#059669', '#D97706'
+];
+
+export const getCustomSubjects = (): Subject[] => {
+  const stored = localStorage.getItem('customSubjects');
+  return stored ? JSON.parse(stored) : [];
+};
+
+export const saveCustomSubjects = (subjects: Subject[]) => {
+  localStorage.setItem('customSubjects', JSON.stringify(subjects));
+};
+
+export const getAllSubjects = (): Subject[] => {
+  return [...defaultSubjects, ...getCustomSubjects()];
+};
+
+// For backward compatibility
+export const sampleSubjects = getAllSubjects();
 
 export const sampleTimetable: TimeSlot[] = [
   { id: '1', day: 'Monday', startTime: '09:00', endTime: '10:00', subject: sampleSubjects[0] },
