@@ -46,6 +46,8 @@ export default function TimetableManager({ onTimetableUpdate }: TimetableManager
   const [selectedSubject, setSelectedSubject] = useState('');
   const [startTime, setStartTime] = useState('09:00');
   const [endTime, setEndTime] = useState('10:00');
+  const [allSubjects, setAllSubjects] = useState(getAllSubjects());
+  const [customSubjectName, setCustomSubjectName] = useState('');
 
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
