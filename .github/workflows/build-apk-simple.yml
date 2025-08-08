@@ -1,0 +1,135 @@
+name: Build APK Simple
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build mobile app
+        run: |
+          echo "Building mobile app..."
+          npm run build:mobile
+          echo "Mobile build complete"
+
+      - name: List dist contents
+        run: |
+          ls -la dist/
+          ls -la dist/spa/ || echo "spa directory not found"
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Accept SDK licenses
+        run: yes | sdkmanager --licenses || true
+
+      - name: Install SDK components
+        run: |
+          sdkmanager "platforms;android-33" "build-tools;33.0.2" "platform-tools"
+
+      - name: Add Android platform
+        run: |
+          npx cap add android || echo "Android platform already exists"
+
+      - name: Copy web assets to Android
+        run: npx cap copy android
+
+      - name: Sync Capacitor
+        run: npx cap sync android
+
+      - name: Check Android project structure
+        run: |
+          ls -la android/
+          ls -la android/app/src/main/assets/ || echo "Assets directory not found"
+
+      - name: Build APK
+        working-directory: android
+        run: |
+          chmod +x ./gradlew
+          ./gradlew clean
+          ./gradlew assembleDebug --no-daemon --stacktrace
+
+      - name: Find APK
+        run: |
+          find . -name "*.apk" -type f
+          ls -la android/app/build/outputs/apk/debug/ || echo "Debug APK directory not found"
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: AttendanceTracker-Debug
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 30
+
+      - name: Create Release
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ github.run_number }}
+          name: AttendanceTracker v${{ github.run_number }}
+          body: |
+            📱 **AttendanceTracker APK - Build ${{ github.run_number }}**
+            
+            🎯 **Features:**
+            - ✅ Attendance tracking dashboard
+            - ✅ Custom subject creation
+            - ✅ Timetable management
+            - ✅ Present/Absent marking with undo
+            - ✅ Subject-wise statistics
+            - ✅ Offline data storage
+            
+            📲 **Installation:**
+            1. Download app-debug.apk below
+            2. Enable "Unknown Sources" in Android settings
+            3. Install and enjoy!
+            
+            🔧 **Built from commit:** ${{ github.sha }}
+          files: android/app/build/outputs/apk/debug/app-debug.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Status
+        if: always()
+        run: |
+          if [ -f "android/app/build/outputs/apk/debug/app-debug.apk" ]; then
+            echo "✅ APK build successful!"
+            ls -lh android/app/build/outputs/apk/debug/app-debug.apk
+          else
+            echo "❌ APK build failed!"
+            exit 1
+          fi
