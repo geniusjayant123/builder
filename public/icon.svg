@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle -->
+  <circle cx="256" cy="256" r="240" fill="#22C55E"/>
+  
+  <!-- Clipboard -->
+  <rect x="160" y="120" width="192" height="272" rx="16" fill="white"/>
+  <rect x="176" y="136" width="160" height="240" rx="8" fill="#F8FAFC"/>
+  
+  <!-- Clipboard Top -->
+  <rect x="208" y="104" width="96" height="32" rx="8" fill="#E2E8F0"/>
+  <rect x="224" y="112" width="64" height="16" rx="4" fill="#22C55E"/>
+  
+  <!-- Check marks -->
+  <circle cx="200" cy="180" r="8" fill="#22C55E"/>
+  <path d="M196 180 L199 183 L204 176" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <circle cx="200" cy="220" r="8" fill="#22C55E"/>
+  <path d="M196 220 L199 223 L204 216" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <circle cx="200" cy="260" r="8" fill="#EF4444"/>
+  <path d="M196 256 L204 264 M204 256 L196 264" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Text lines -->
+  <rect x="224" y="176" width="80" height="8" rx="4" fill="#94A3B8"/>
+  <rect x="224" y="216" width="96" height="8" rx="4" fill="#94A3B8"/>
+  <rect x="224" y="256" width="72" height="8" rx="4" fill="#94A3B8"/>
+  
+  <!-- Calendar icon in corner -->
+  <rect x="320" y="320" width="48" height="48" rx="6" fill="#3B82F6"/>
+  <rect x="328" y="312" width="4" height="16" rx="2" fill="#3B82F6"/>
+  <rect x="356" y="312" width="4" height="16" rx="2" fill="#3B82F6"/>
+  <rect x="328" y="336" width="32" height="2" fill="white"/>
+  <rect x="328" y="344" width="8" height="2" fill="white"/>
+  <rect x="340" y="344" width="8" height="2" fill="white"/>
+  <rect x="352" y="344" width="8" height="2" fill="white"/>
+</svg>
