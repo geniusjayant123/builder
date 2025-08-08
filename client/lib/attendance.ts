@@ -175,6 +175,74 @@ export const autoMarkAbsent = () => {
   return hasNewAbsents;
 };
 
+// Custom timetable management
+export const getCustomTimetable = (): WeeklyTimetable => {
+  const stored = localStorage.getItem('customTimetable');
+  if (stored) {
+    return JSON.parse(stored);
+  }
+
+  // Default timetable based on sample data
+  return {
+    Monday: [
+      { id: 'mon-1', day: 'Monday', startTime: '09:00', endTime: '10:00', subjectId: '1' },
+      { id: 'mon-2', day: 'Monday', startTime: '10:00', endTime: '11:00', subjectId: '2' },
+    ],
+    Tuesday: [
+      { id: 'tue-1', day: 'Tuesday', startTime: '09:00', endTime: '10:00', subjectId: '3' },
+      { id: 'tue-2', day: 'Tuesday', startTime: '10:00', endTime: '11:00', subjectId: '4' },
+    ],
+    Wednesday: [
+      { id: 'wed-1', day: 'Wednesday', startTime: '09:00', endTime: '10:00', subjectId: '1' },
+      { id: 'wed-2', day: 'Wednesday', startTime: '10:00', endTime: '11:00', subjectId: '5' },
+    ],
+    Thursday: [
+      { id: 'thu-1', day: 'Thursday', startTime: '09:00', endTime: '10:00', subjectId: '2' },
+      { id: 'thu-2', day: 'Thursday', startTime: '10:00', endTime: '11:00', subjectId: '3' },
+    ],
+    Friday: [
+      { id: 'fri-1', day: 'Friday', startTime: '09:00', endTime: '10:00', subjectId: '4' },
+      { id: 'fri-2', day: 'Friday', startTime: '10:00', endTime: '11:00', subjectId: '5' },
+    ],
+    Saturday: [],
+    Sunday: [],
+  };
+};
+
+export const saveCustomTimetable = (timetable: WeeklyTimetable) => {
+  localStorage.setItem('customTimetable', JSON.stringify(timetable));
+};
+
+export const addSubjectToDay = (day: string, subjectId: string, startTime: string, endTime: string) => {
+  const timetable = getCustomTimetable();
+  const newSlot: CustomTimeSlot = {
+    id: `${day.toLowerCase()}-${Date.now()}`,
+    day,
+    startTime,
+    endTime,
+    subjectId,
+  };
+
+  if (!timetable[day]) {
+    timetable[day] = [];
+  }
+
+  timetable[day].push(newSlot);
+  timetable[day].sort((a, b) => a.startTime.localeCompare(b.startTime));
+
+  saveCustomTimetable(timetable);
+  return timetable;
+};
+
+export const removeSubjectFromDay = (day: string, slotId: string) => {
+  const timetable = getCustomTimetable();
+  if (timetable[day]) {
+    timetable[day] = timetable[day].filter(slot => slot.id !== slotId);
+  }
+  saveCustomTimetable(timetable);
+  return timetable;
+};
+
 export const initializeSampleData = () => {
   const existingRecords = getAttendanceData();
   if (existingRecords.length === 0) {
