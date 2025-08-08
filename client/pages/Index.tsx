@@ -137,7 +137,11 @@ export default function Index() {
                 <div className={`text-4xl font-bold ${getStatusColor(stats.percentage)}`}>
                   {stats.percentage}%
                 </div>
-                <p className="text-sm text-gray-600 mt-1">
+                <Progress
+                  value={stats.percentage}
+                  className="mt-3 h-2"
+                />
+                <p className="text-sm text-gray-600 mt-2">
                   {stats.attendedLectures} of {stats.totalLectures} lectures
                 </p>
               </div>
