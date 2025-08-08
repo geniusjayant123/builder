@@ -155,9 +155,22 @@ export default function Index() {
                 <Settings className="h-4 w-4" />
                 {showTimetableManager ? "Hide" : "Manage"} Timetable
               </Button>
-              <div className="text-right">
+              <Button
+                variant="outline"
+                onClick={() => setShowDatePicker(true)}
+                className="flex items-center gap-2"
+              >
+                <CalendarDays className="h-4 w-4" />
+                Edit History
+              </Button>
+              <div
+                className="text-right cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors"
+                onClick={() => setShowDatePicker(true)}
+                title="Click to edit historical attendance"
+              >
                 <p className="text-sm text-gray-600">Today</p>
-                <p className="font-semibold text-gray-900">
+                <p className="font-semibold text-gray-900 flex items-center gap-1">
+                  <Calendar className="h-4 w-4" />
                   {currentTime.toLocaleDateString("en-US", {
                     weekday: "long",
                     month: "short",
