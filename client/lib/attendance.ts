@@ -128,7 +128,19 @@ export const calculateAttendanceStats = (): AttendanceStats => {
 
 export const getTodaysClasses = (): TimeSlot[] => {
   const today = new Date().toLocaleDateString('en-US', { weekday: 'long' });
-  return sampleTimetable.filter(slot => slot.day === today);
+  const customTimetable = getCustomTimetable();
+  const todaysSlots = customTimetable[today] || [];
+
+  return todaysSlots.map(slot => {
+    const subject = sampleSubjects.find(s => s.id === slot.subjectId);
+    return {
+      id: slot.id,
+      day: slot.day,
+      startTime: slot.startTime,
+      endTime: slot.endTime,
+      subject: subject || sampleSubjects[0], // fallback to first subject
+    };
+  });
 };
 
 export const getAttendanceForDate = (subjectId: string, date: string): AttendanceRecord | undefined => {
