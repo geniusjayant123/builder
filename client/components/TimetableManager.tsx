@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogTrigger 
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   Select,
@@ -24,32 +24,42 @@ import {
   getAllSubjects,
   createCustomSubject,
   type WeeklyTimetable,
-  type CustomTimeSlot
+  type CustomTimeSlot,
 } from "@/lib/attendance";
-import { 
-  Plus, 
-  Trash2, 
+import {
+  Plus,
+  Trash2,
   Calendar,
   Clock,
   BookOpen,
-  Settings
+  Settings,
 } from "lucide-react";
 
 interface TimetableManagerProps {
   onTimetableUpdate: () => void;
 }
 
-export default function TimetableManager({ onTimetableUpdate }: TimetableManagerProps) {
+export default function TimetableManager({
+  onTimetableUpdate,
+}: TimetableManagerProps) {
   const [timetable, setTimetable] = useState<WeeklyTimetable>({});
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
-  const [selectedDay, setSelectedDay] = useState('');
-  const [selectedSubject, setSelectedSubject] = useState('');
-  const [startTime, setStartTime] = useState('09:00');
-  const [endTime, setEndTime] = useState('10:00');
+  const [selectedDay, setSelectedDay] = useState("");
+  const [selectedSubject, setSelectedSubject] = useState("");
+  const [startTime, setStartTime] = useState("09:00");
+  const [endTime, setEndTime] = useState("10:00");
   const [allSubjects, setAllSubjects] = useState(getAllSubjects());
-  const [customSubjectName, setCustomSubjectName] = useState('');
+  const [customSubjectName, setCustomSubjectName] = useState("");
 
-  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  const days = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
 
   useEffect(() => {
     setTimetable(getCustomTimetable());
@@ -62,19 +72,24 @@ export default function TimetableManager({ onTimetableUpdate }: TimetableManager
       const updatedSubjects = getAllSubjects();
       setAllSubjects(updatedSubjects);
       setSelectedSubject(newSubject.id);
-      setCustomSubjectName('');
+      setCustomSubjectName("");
     }
   };
 
   const handleAddSubject = () => {
     if (selectedDay && selectedSubject && startTime && endTime) {
-      const updatedTimetable = addSubjectToDay(selectedDay, selectedSubject, startTime, endTime);
+      const updatedTimetable = addSubjectToDay(
+        selectedDay,
+        selectedSubject,
+        startTime,
+        endTime,
+      );
       setTimetable(updatedTimetable);
       setIsAddDialogOpen(false);
-      setSelectedDay('');
-      setSelectedSubject('');
-      setStartTime('09:00');
-      setEndTime('10:00');
+      setSelectedDay("");
+      setSelectedSubject("");
+      setStartTime("09:00");
+      setEndTime("10:00");
       setAllSubjects(getAllSubjects()); // Refresh subjects list
       onTimetableUpdate();
     }
@@ -87,14 +102,14 @@ export default function TimetableManager({ onTimetableUpdate }: TimetableManager
   };
 
   const getSubjectById = (id: string) => {
-    return allSubjects.find(s => s.id === id) || allSubjects[0];
+    return allSubjects.find((s) => s.id === id) || allSubjects[0];
   };
 
   const formatTime = (time: string) => {
-    return new Date(`1970-01-01T${time}:00`).toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true
+    return new Date(`1970-01-01T${time}:00`).toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
     });
   };
 
@@ -125,21 +140,26 @@ export default function TimetableManager({ onTimetableUpdate }: TimetableManager
                       <SelectValue placeholder="Select a day" />
                     </SelectTrigger>
                     <SelectContent>
-                      {days.map(day => (
-                        <SelectItem key={day} value={day}>{day}</SelectItem>
+                      {days.map((day) => (
+                        <SelectItem key={day} value={day}>
+                          {day}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="subject">Subject</Label>
-                  <Select value={selectedSubject} onValueChange={setSelectedSubject}>
+                  <Select
+                    value={selectedSubject}
+                    onValueChange={setSelectedSubject}
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Select a subject" />
                     </SelectTrigger>
                     <SelectContent>
-                      {allSubjects.map(subject => (
+                      {allSubjects.map((subject) => (
                         <SelectItem key={subject.id} value={subject.id}>
                           <div className="flex items-center gap-2">
                             <div
@@ -163,7 +183,7 @@ export default function TimetableManager({ onTimetableUpdate }: TimetableManager
                       value={customSubjectName}
                       onChange={(e) => setCustomSubjectName(e.target.value)}
                       onKeyPress={(e) => {
-                        if (e.key === 'Enter') {
+                        if (e.key === "Enter") {
                           handleCreateCustomSubject();
                         }
                       }}
@@ -201,7 +221,7 @@ export default function TimetableManager({ onTimetableUpdate }: TimetableManager
                   </div>
                 </div>
 
-                <Button 
+                <Button
                   onClick={handleAddSubject}
                   className="w-full"
                   disabled={!selectedDay || !selectedSubject}
@@ -215,7 +235,7 @@ export default function TimetableManager({ onTimetableUpdate }: TimetableManager
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          {days.map(day => (
+          {days.map((day) => (
             <div key={day} className="border rounded-lg p-4">
               <div className="flex items-center gap-2 mb-3">
                 <Calendar className="h-5 w-5 text-primary" />
@@ -224,7 +244,7 @@ export default function TimetableManager({ onTimetableUpdate }: TimetableManager
                   ({(timetable[day] || []).length} subjects)
                 </span>
               </div>
-              
+
               {(timetable[day] || []).length === 0 ? (
                 <div className="text-center py-6 text-gray-500">
                   <BookOpen className="h-8 w-8 mx-auto mb-2 opacity-50" />
@@ -235,26 +255,29 @@ export default function TimetableManager({ onTimetableUpdate }: TimetableManager
                   {(timetable[day] || []).map((slot: CustomTimeSlot) => {
                     const subject = getSubjectById(slot.subjectId);
                     return (
-                      <div 
+                      <div
                         key={slot.id}
                         className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border"
                       >
                         <div className="flex items-center gap-3">
-                          <div 
+                          <div
                             className="w-4 h-4 rounded-full"
                             style={{ backgroundColor: subject.color }}
                           />
                           <div>
                             <p className="font-medium">{subject.name}</p>
-                            <p className="text-sm text-gray-600">{subject.code}</p>
+                            <p className="text-sm text-gray-600">
+                              {subject.code}
+                            </p>
                           </div>
                         </div>
-                        
+
                         <div className="flex items-center gap-3">
                           <div className="flex items-center gap-1 text-sm text-gray-600">
                             <Clock className="h-4 w-4" />
                             <span>
-                              {formatTime(slot.startTime)} - {formatTime(slot.endTime)}
+                              {formatTime(slot.startTime)} -{" "}
+                              {formatTime(slot.endTime)}
                             </span>
                           </div>
                           <Button

@@ -13,7 +13,7 @@ import {
   undoAttendance,
   getAllSubjects,
   type AttendanceStats,
-  type TimeSlot
+  type TimeSlot,
 } from "@/lib/attendance";
 import {
   Calendar,
@@ -25,7 +25,7 @@ import {
   BarChart3,
   GraduationCap,
   Settings,
-  RotateCcw
+  RotateCcw,
 } from "lucide-react";
 
 export default function Index() {
@@ -33,7 +33,7 @@ export default function Index() {
     totalLectures: 0,
     attendedLectures: 0,
     percentage: 0,
-    subjectStats: {}
+    subjectStats: {},
   });
   const [todaysClasses, setTodaysClasses] = useState<TimeSlot[]>([]);
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -60,35 +60,38 @@ export default function Index() {
     setTodaysClasses(getTodaysClasses());
   };
 
-  const handleMarkAttendance = (subjectId: string, status: 'present' | 'absent') => {
-    const today = new Date().toISOString().split('T')[0];
+  const handleMarkAttendance = (
+    subjectId: string,
+    status: "present" | "absent",
+  ) => {
+    const today = new Date().toISOString().split("T")[0];
     markAttendance(subjectId, today, status);
     refreshData();
   };
 
   const handleUndoAttendance = (subjectId: string) => {
-    const today = new Date().toISOString().split('T')[0];
+    const today = new Date().toISOString().split("T")[0];
     undoAttendance(subjectId, today);
     refreshData();
   };
 
   const getStatusColor = (percentage: number) => {
-    if (percentage >= 85) return 'text-success';
-    if (percentage >= 75) return 'text-warning';
-    return 'text-destructive';
+    if (percentage >= 85) return "text-success";
+    if (percentage >= 75) return "text-warning";
+    return "text-destructive";
   };
 
   const getStatusBg = (percentage: number) => {
-    if (percentage >= 85) return 'bg-success/10 border-success/20';
-    if (percentage >= 75) return 'bg-warning/10 border-warning/20';
-    return 'bg-destructive/10 border-destructive/20';
+    if (percentage >= 85) return "bg-success/10 border-success/20";
+    if (percentage >= 75) return "bg-warning/10 border-warning/20";
+    return "bg-destructive/10 border-destructive/20";
   };
 
   const formatTime = (time: string) => {
-    return new Date(`1970-01-01T${time}:00`).toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true
+    return new Date(`1970-01-01T${time}:00`).toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
     });
   };
 
@@ -100,7 +103,7 @@ export default function Index() {
   };
 
   const getAttendanceStatus = (subjectId: string) => {
-    const today = new Date().toISOString().split('T')[0];
+    const today = new Date().toISOString().split("T")[0];
     return getAttendanceForDate(subjectId, today);
   };
 
@@ -115,8 +118,12 @@ export default function Index() {
                 <GraduationCap className="h-8 w-8 text-primary" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">AttendanceTracker</h1>
-                <p className="text-sm text-gray-600">Track your academic progress</p>
+                <h1 className="text-2xl font-bold text-gray-900">
+                  AttendanceTracker
+                </h1>
+                <p className="text-sm text-gray-600">
+                  Track your academic progress
+                </p>
               </div>
             </div>
             <div className="flex items-center gap-4">
@@ -126,15 +133,15 @@ export default function Index() {
                 className="flex items-center gap-2"
               >
                 <Settings className="h-4 w-4" />
-                {showTimetableManager ? 'Hide' : 'Manage'} Timetable
+                {showTimetableManager ? "Hide" : "Manage"} Timetable
               </Button>
               <div className="text-right">
                 <p className="text-sm text-gray-600">Today</p>
                 <p className="font-semibold text-gray-900">
-                  {currentTime.toLocaleDateString('en-US', {
-                    weekday: 'long',
-                    month: 'short',
-                    day: 'numeric'
+                  {currentTime.toLocaleDateString("en-US", {
+                    weekday: "long",
+                    month: "short",
+                    day: "numeric",
                   })}
                 </p>
               </div>
@@ -160,13 +167,12 @@ export default function Index() {
             </CardHeader>
             <CardContent>
               <div className="text-center">
-                <div className={`text-4xl font-bold ${getStatusColor(stats.percentage)}`}>
+                <div
+                  className={`text-4xl font-bold ${getStatusColor(stats.percentage)}`}
+                >
                   {stats.percentage}%
                 </div>
-                <Progress
-                  value={stats.percentage}
-                  className="mt-3 h-2"
-                />
+                <Progress value={stats.percentage} className="mt-3 h-2" />
                 <p className="text-sm text-gray-600 mt-2">
                   {stats.attendedLectures} of {stats.totalLectures} lectures
                 </p>
@@ -187,9 +193,7 @@ export default function Index() {
                 <div className="text-4xl font-bold text-blue-600">
                   {stats.totalLectures}
                 </div>
-                <p className="text-sm text-gray-600 mt-1">
-                  Classes attended
-                </p>
+                <p className="text-sm text-gray-600 mt-1">Classes attended</p>
               </div>
             </CardContent>
           </Card>
@@ -207,9 +211,7 @@ export default function Index() {
                 <div className="text-4xl font-bold text-success">
                   {stats.attendedLectures}
                 </div>
-                <p className="text-sm text-gray-600 mt-1">
-                  Present in class
-                </p>
+                <p className="text-sm text-gray-600 mt-1">Present in class</p>
               </div>
             </CardContent>
           </Card>
@@ -232,21 +234,26 @@ export default function Index() {
             ) : (
               <div className="space-y-3">
                 {todaysClasses.map((classItem) => {
-                  const attendanceRecord = getAttendanceStatus(classItem.subject.id);
-                  const isActive = isClassActive(classItem.startTime, classItem.endTime);
-                  
+                  const attendanceRecord = getAttendanceStatus(
+                    classItem.subject.id,
+                  );
+                  const isActive = isClassActive(
+                    classItem.startTime,
+                    classItem.endTime,
+                  );
+
                   return (
                     <div
                       key={classItem.id}
                       className={`p-4 rounded-lg border-2 transition-all ${
-                        isActive 
-                          ? 'bg-blue-50 border-blue-200 shadow-md' 
-                          : 'bg-gray-50 border-gray-200'
+                        isActive
+                          ? "bg-blue-50 border-blue-200 shadow-md"
+                          : "bg-gray-50 border-gray-200"
                       }`}
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
-                          <div 
+                          <div
                             className="w-4 h-16 rounded-full"
                             style={{ backgroundColor: classItem.subject.color }}
                           />
@@ -260,7 +267,8 @@ export default function Index() {
                             <div className="flex items-center gap-2 mt-1">
                               <Clock className="h-4 w-4 text-gray-400" />
                               <span className="text-sm text-gray-600">
-                                {formatTime(classItem.startTime)} - {formatTime(classItem.endTime)}
+                                {formatTime(classItem.startTime)} -{" "}
+                                {formatTime(classItem.endTime)}
                               </span>
                               {isActive && (
                                 <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full font-medium">
@@ -270,17 +278,19 @@ export default function Index() {
                             </div>
                           </div>
                         </div>
-                        
+
                         <div className="flex items-center gap-2">
                           {attendanceRecord ? (
                             <div className="flex items-center gap-3">
                               <div className="text-center">
-                                <div className={`flex items-center gap-1 ${
-                                  attendanceRecord.status === 'present'
-                                    ? 'text-success'
-                                    : 'text-destructive'
-                                }`}>
-                                  {attendanceRecord.status === 'present' ? (
+                                <div
+                                  className={`flex items-center gap-1 ${
+                                    attendanceRecord.status === "present"
+                                      ? "text-success"
+                                      : "text-destructive"
+                                  }`}
+                                >
+                                  {attendanceRecord.status === "present" ? (
                                     <CheckCircle className="h-5 w-5" />
                                   ) : (
                                     <XCircle className="h-5 w-5" />
@@ -296,7 +306,9 @@ export default function Index() {
                               <Button
                                 variant="outline"
                                 size="sm"
-                                onClick={() => handleUndoAttendance(classItem.subject.id)}
+                                onClick={() =>
+                                  handleUndoAttendance(classItem.subject.id)
+                                }
                                 className="text-gray-600 hover:text-gray-800"
                               >
                                 <RotateCcw className="h-4 w-4 mr-1" />
@@ -308,7 +320,12 @@ export default function Index() {
                               <Button
                                 size="sm"
                                 className="bg-success hover:bg-success/90"
-                                onClick={() => handleMarkAttendance(classItem.subject.id, 'present')}
+                                onClick={() =>
+                                  handleMarkAttendance(
+                                    classItem.subject.id,
+                                    "present",
+                                  )
+                                }
                               >
                                 <CheckCircle className="h-4 w-4 mr-1" />
                                 Present
@@ -316,7 +333,12 @@ export default function Index() {
                               <Button
                                 size="sm"
                                 variant="destructive"
-                                onClick={() => handleMarkAttendance(classItem.subject.id, 'absent')}
+                                onClick={() =>
+                                  handleMarkAttendance(
+                                    classItem.subject.id,
+                                    "absent",
+                                  )
+                                }
                               >
                                 <XCircle className="h-4 w-4 mr-1" />
                                 Absent
@@ -343,45 +365,51 @@ export default function Index() {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {Object.entries(stats.subjectStats).map(([subjectId, subjectStat]) => {
-                const allSubjects = getAllSubjects();
-                const subject = allSubjects.find(s => s.id === subjectId);
+              {Object.entries(stats.subjectStats).map(
+                ([subjectId, subjectStat]) => {
+                  const allSubjects = getAllSubjects();
+                  const subject = allSubjects.find((s) => s.id === subjectId);
 
-                if (!subject) return null;
-                
-                return (
-                  <div 
-                    key={subjectId}
-                    className="p-4 rounded-lg border-2 bg-white"
-                    style={{ borderColor: `${subject.color}20` }}
-                  >
-                    <div className="flex items-center gap-3 mb-3">
-                      <div 
-                        className="w-3 h-3 rounded-full"
-                        style={{ backgroundColor: subject.color }}
-                      />
-                      <div>
-                        <h4 className="font-medium text-gray-900">{subject.name}</h4>
-                        <p className="text-xs text-gray-600">{subject.code}</p>
+                  if (!subject) return null;
+
+                  return (
+                    <div
+                      key={subjectId}
+                      className="p-4 rounded-lg border-2 bg-white"
+                      style={{ borderColor: `${subject.color}20` }}
+                    >
+                      <div className="flex items-center gap-3 mb-3">
+                        <div
+                          className="w-3 h-3 rounded-full"
+                          style={{ backgroundColor: subject.color }}
+                        />
+                        <div>
+                          <h4 className="font-medium text-gray-900">
+                            {subject.name}
+                          </h4>
+                          <p className="text-xs text-gray-600">
+                            {subject.code}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="text-center">
+                        <div
+                          className={`text-2xl font-bold ${getStatusColor(subjectStat.percentage)}`}
+                        >
+                          {subjectStat.percentage}%
+                        </div>
+                        <Progress
+                          value={subjectStat.percentage}
+                          className="mt-2 h-1.5"
+                        />
+                        <p className="text-sm text-gray-600 mt-2">
+                          {subjectStat.attended} / {subjectStat.total} classes
+                        </p>
                       </div>
                     </div>
-                    <div className="text-center">
-                      <div
-                        className={`text-2xl font-bold ${getStatusColor(subjectStat.percentage)}`}
-                      >
-                        {subjectStat.percentage}%
-                      </div>
-                      <Progress
-                        value={subjectStat.percentage}
-                        className="mt-2 h-1.5"
-                      />
-                      <p className="text-sm text-gray-600 mt-2">
-                        {subjectStat.attended} / {subjectStat.total} classes
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                },
+              )}
             </div>
           </CardContent>
         </Card>
