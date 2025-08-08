@@ -115,6 +115,31 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Enable full zoom support */
+  html {
+    touch-action: pan-x pan-y pinch-zoom;
+  }
+
+  /* Prevent layout breaks during zoom */
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Allow zooming on all elements */
+  body,
+  * {
+    touch-action: pan-x pan-y pinch-zoom;
+  }
+}
+
+/* Safe Area Support for Mobile Devices */
+.pt-safe-top {
+  padding-top: env(safe-area-inset-top, 50px);
+}
+
+.pb-safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 20px);
 }
 
 /* Mobile 16:9 Optimizations */
@@ -122,6 +147,11 @@
   /* Optimize for mobile viewport */
   html {
     font-size: 14px;
+  }
+
+  /* Additional safe area padding for small screens */
+  .pt-safe-top {
+    padding-top: env(safe-area-inset-top, 60px);
   }
 
   /* Ensure content fits within viewport */

@@ -84,14 +84,23 @@ export default function Index() {
   };
 
   const handleRemoveSubject = (subjectId: string) => {
-    const subject = getAllSubjects().find(s => s.id === subjectId);
-    if (subject && confirm(`Are you sure you want to remove "${subject.name}"? This will delete all attendance records and timetable entries for this subject.`)) {
+    const subject = getAllSubjects().find((s) => s.id === subjectId);
+    if (
+      subject &&
+      confirm(
+        `Are you sure you want to remove "${subject.name}"? This will delete all attendance records and timetable entries for this subject.`,
+      )
+    ) {
       removeAnySubject(subjectId);
       refreshData();
     }
   };
 
-  const handleEditAttendance = (subjectId: string, date: string, status: 'present' | 'absent') => {
+  const handleEditAttendance = (
+    subjectId: string,
+    date: string,
+    status: "present" | "absent",
+  ) => {
     editAttendance(subjectId, date, status);
     refreshData();
   };
@@ -131,7 +140,7 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 overflow-x-hidden">
       {/* Header */}
-      <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-10">
+      <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-10 pt-safe-top mt-4 md:mt-0">
         <div className="container mx-auto px-2 py-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -142,9 +151,7 @@ export default function Index() {
                 <h1 className="text-lg font-bold text-gray-900">
                   AttendanceTracker
                 </h1>
-                <p className="text-xs text-gray-600">
-                  Track your progress
-                </p>
+                <p className="text-xs text-gray-600">Track your progress</p>
               </div>
             </div>
             <div className="flex items-center gap-1">
@@ -304,7 +311,8 @@ export default function Index() {
                             <div className="flex items-center gap-1 mt-1">
                               <Clock className="h-3 w-3 text-gray-400 flex-shrink-0" />
                               <span className="text-xs text-gray-600">
-                                {formatTime(classItem.startTime)}-{formatTime(classItem.endTime)}
+                                {formatTime(classItem.startTime)}-
+                                {formatTime(classItem.endTime)}
                               </span>
                               {isActive && (
                                 <span className="bg-blue-100 text-blue-800 text-xs px-1.5 py-0.5 rounded-full font-medium ml-1">
