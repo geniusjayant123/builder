@@ -109,15 +109,25 @@ export default function Index() {
                 <p className="text-sm text-gray-600">Track your academic progress</p>
               </div>
             </div>
-            <div className="text-right">
-              <p className="text-sm text-gray-600">Today</p>
-              <p className="font-semibold text-gray-900">
-                {currentTime.toLocaleDateString('en-US', { 
-                  weekday: 'long', 
-                  month: 'short', 
-                  day: 'numeric' 
-                })}
-              </p>
+            <div className="flex items-center gap-4">
+              <Button
+                variant="outline"
+                onClick={() => setShowTimetableManager(!showTimetableManager)}
+                className="flex items-center gap-2"
+              >
+                <Settings className="h-4 w-4" />
+                {showTimetableManager ? 'Hide' : 'Manage'} Timetable
+              </Button>
+              <div className="text-right">
+                <p className="text-sm text-gray-600">Today</p>
+                <p className="font-semibold text-gray-900">
+                  {currentTime.toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    month: 'short',
+                    day: 'numeric'
+                  })}
+                </p>
+              </div>
             </div>
           </div>
         </div>
