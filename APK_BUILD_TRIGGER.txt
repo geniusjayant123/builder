@@ -1,0 +1,14 @@
+🚀 APK Build Trigger - AttendanceTracker v1.0
+
+This file triggers automatic APK building via GitHub Actions.
+
+Build Date: 2024-01-08
+Features Ready:
+- ✅ Attendance tracking dashboard
+- ✅ Custom subject creation
+- ✅ Timetable management  
+- ✅ Present/Absent marking with undo
+- ✅ Subject-wise statistics
+- ✅ Offline data storage
+
+Ready for Android APK generation!
